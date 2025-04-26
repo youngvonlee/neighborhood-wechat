@@ -1,0 +1,90 @@
+<!--pages/community/activity/activity.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">社区活动</view>
+    <view class="page-subtitle">参与社区活动，丰富邻里生活</view>
+  </view>
+
+  <!-- 活动分类标签 -->
+  <view class="category-tabs">
+    <view 
+      class="category-tab {{currentCategory === index ? 'active' : ''}}" 
+      wx:for="{{categories}}" 
+      wx:key="index"
+      bindtap="switchCategory"
+      data-index="{{index}}"
+    >
+      {{item}}
+    </view>
+  </view>
+
+  <!-- 活动列表 -->
+  <view class="activity-list">
+    <block wx:if="{{activities.length > 0}}">
+      <view class="activity-item" wx:for="{{activities}}" wx:key="id" bindtap="viewActivityDetail" data-id="{{item.id}}">
+        <view class="activity-image">
+          <image src="{{item.image}}" mode="aspectFill"></image>
+          <view class="activity-status {{item.status === '报名中' ? 'status-enrolling' : (item.status === '已结束' ? 'status-ended' : 'status-ongoing')}}">
+            {{item.status}}
+          </view>
+        </view>
+        
+        <view class="activity-info">
+          <view class="activity-title">{{item.title}}</view>
+          
+          <view class="activity-meta">
+            <view class="meta-item">
+              <view class="meta-icon time-icon"></view>
+              <view class="meta-text">{{item.time}}</view>
+            </view>
+            
+            <view class="meta-item">
+              <view class="meta-icon location-icon"></view>
+              <view class="meta-text">{{item.location}}</view>
+            </view>
+          </view>
+          
+          <view class="activity-stats">
+            <view class="stats-item">
+              <text class="stats-label">参与人数：</text>
+              <text class="stats-value">{{item.participantsCount}}/{{item.maxParticipants}}</text>
+            </view>
+            
+            <view class="stats-item" wx:if="{{item.fee > 0}}">
+              <text class="stats-label">费用：</text>
+              <text class="stats-value fee">¥{{item.fee}}</text>
+            </view>
+            
+            <view class="stats-item" wx:else>
+              <text class="stats-label">费用：</text>
+              <text class="stats-value free">免费</text>
+            </view>
+          </view>
+        </view>
+        
+        <view class="activity-action">
+          <view class="action-btn {{item.status === '报名中' ? 'btn-primary' : 'btn-disabled'}}" catchtap="enrollActivity" data-id="{{item.id}}">
+            {{item.status === '报名中' ? '立即报名' : (item.status === '已结束' ? '已结束' : '进行中')}}
+          </view>
+        </view>
+      </view>
+    </block>
+    
+    <view class="empty-list" wx:else>
+      <view class="empty-icon"></view>
+      <view class="empty-text">暂无{{categories[currentCategory]}}活动</view>
+    </view>
+  </view>
+
+  <!-- 我的活动入口 -->
+  <view class="my-activities-entry" bindtap="viewMyActivities">
+    <view class="entry-icon"></view>
+    <view class="entry-text">我的活动</view>
+  </view>
+
+  <!-- 发布活动按钮 (仅管理员可见) -->
+  <view class="publish-btn" wx:if="{{isAdmin}}" bindtap="publishActivity">
+    <view class="publish-icon">+</view>
+  </view>
+</view>

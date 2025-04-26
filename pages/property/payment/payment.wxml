@@ -1,0 +1,68 @@
+<!--pages/property/payment/payment.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">物业缴费</view>
+    <view class="page-subtitle">查询和支付物业相关费用</view>
+  </view>
+
+  <!-- 标签页切换 -->
+  <view class="tabs">
+    <view class="tab {{activeTab === 'unpaid' ? 'active' : ''}}" bindtap="switchTab" data-tab="unpaid">待缴费</view>
+    <view class="tab {{activeTab === 'paid' ? 'active' : ''}}" bindtap="switchTab" data-tab="paid">已缴费</view>
+  </view>
+
+  <!-- 待缴费账单 -->
+  <view class="tab-content" wx:if="{{activeTab === 'unpaid'}}">
+    <!-- 总计栏 -->
+    <view class="total-bar">
+      <view class="total-text">待缴总计</view>
+      <view class="total-amount">¥ {{totalUnpaid}}</view>
+      <view class="pay-all-btn" bindtap="payAll">一键缴费</view>
+    </view>
+
+    <!-- 账单列表 -->
+    <view class="bill-list">
+      <block wx:for="{{bills}}" wx:key="id">
+        <view class="bill-item" bindtap="viewBillDetail" data-id="{{item.id}}" data-paid="false">
+          <view class="bill-info">
+            <view class="bill-type">{{item.type}}</view>
+            <view class="bill-period">{{item.period}}</view>
+            <view class="bill-address">{{item.building}} {{item.room}}</view>
+            <view class="bill-due">截止日期: {{item.dueDate}}</view>
+          </view>
+          <view class="bill-amount">¥ {{item.amount}}</view>
+          <view class="bill-action" catchtap="payBill" data-id="{{item.id}}">缴费</view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{bills.length === 0}}">
+      <text>暂无待缴费账单</text>
+    </view>
+  </view>
+
+  <!-- 已缴费账单 -->
+  <view class="tab-content" wx:if="{{activeTab === 'paid'}}">
+    <view class="bill-list">
+      <block wx:for="{{paidBills}}" wx:key="id">
+        <view class="bill-item paid" bindtap="viewBillDetail" data-id="{{item.id}}" data-paid="true">
+          <view class="bill-info">
+            <view class="bill-type">{{item.type}}</view>
+            <view class="bill-period">{{item.period}}</view>
+            <view class="bill-address">{{item.building}} {{item.room}}</view>
+            <view class="bill-due">支付日期: {{item.paidDate}}</view>
+          </view>
+          <view class="bill-amount">¥ {{item.amount}}</view>
+          <view class="bill-status">已缴费</view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{paidBills.length === 0}}">
+      <text>暂无已缴费记录</text>
+    </view>
+  </view>
+</view>

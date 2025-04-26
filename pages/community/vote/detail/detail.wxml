@@ -1,0 +1,114 @@
+<!-- pages/community/vote/detail/detail.wxml -->
+<view class="container">
+  <!-- 投票详情 -->
+  <view class="vote-card">
+    <view class="vote-header">
+      <view class="vote-title">{{vote.title}}</view>
+      <view class="vote-status {{vote.status === '进行中' ? 'ongoing' : 'ended'}}">{{vote.status}}</view>
+    </view>
+    
+    <view class="vote-info">
+      <view class="vote-description">{{vote.description}}</view>
+      
+      <view class="vote-meta">
+        <view class="meta-item">
+          <text class="meta-label">发起人:</text>
+          <text class="meta-value">{{vote.initiator}}</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-label">开始时间:</text>
+          <text class="meta-value">{{vote.startTime}}</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-label">结束时间:</text>
+          <text class="meta-value">{{vote.endTime}}</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-label">参与人数:</text>
+          <text class="meta-value">{{vote.participantCount}}人</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 投票选项 -->
+    <view class="vote-options">
+      <view class="section-title">投票选项</view>
+      
+      <view class="options-list">
+        <view 
+          wx:for="{{vote.options}}" 
+          wx:key="id" 
+          class="option-item {{selectedOption === item.id ? 'selected' : ''}} {{vote.hasVoted || vote.status === '已结束' ? 'disabled' : ''}}"
+          bindtap="selectOption"
+          data-id="{{item.id}}"
+        >
+          <view class="option-content">
+            <view class="option-text">{{item.text}}</view>
+            <view class="option-count">{{item.count}}票</view>
+          </view>
+          
+          <view class="option-progress-container">
+            <view 
+              class="option-progress" 
+              style="width: {{vote.totalVotes > 0 ? (item.count / vote.totalVotes * 100) : 0}}%"
+            ></view>
+          </view>
+          
+          <view class="option-percentage">{{vote.totalVotes > 0 ? (item.count / vote.totalVotes * 100).toFixed(1) : 0}}%</view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 投票按钮 -->
+    <view class="vote-action" wx:if="{{vote.status === '进行中'}}">
+      <button 
+        class="vote-btn {{vote.hasVoted ? 'disabled' : ''}}" 
+        disabled="{{vote.hasVoted || !selectedOption}}"
+        bindtap="submitVote"
+      >{{vote.hasVoted ? '已投票' : '提交投票'}}</button>
+      <view class="vote-tip" wx:if="{{!vote.hasVoted}}">提交后不可更改，请慎重选择</view>
+    </view>
+  </view>
+  
+  <!-- 投票评论 -->
+  <view class="vote-comments">
+    <view class="section-title">讨论区 ({{comments.length}})</view>
+    
+    <view class="comment-input-section">
+      <input 
+        class="comment-input" 
+        placeholder="发表您的看法..." 
+        value="{{newComment}}"
+        bindinput="inputComment"
+      />
+      <button class="comment-submit" bindtap="submitComment">发送</button>
+    </view>
+    
+    <view class="comments-list">
+      <view wx:if="{{comments.length === 0}}" class="empty-comments">
+        <view class="empty-text">暂无评论，快来发表您的看法吧</view>
+      </view>
+      
+      <view 
+        wx:for="{{comments}}" 
+        wx:key="id" 
+        class="comment-item"
+      >
+        <image class="comment-avatar" src="{{item.user.avatar}}" mode="aspectFill"></image>
+        <view class="comment-content">
+          <view class="comment-header">
+            <text class="comment-user">{{item.user.nickname}}</text>
+            <text class="comment-time">{{item.time}}</text>
+          </view>
+          <text class="comment-text">{{item.content}}</text>
+          <view class="comment-actions">
+            <view class="like-button" bindtap="likeComment" data-id="{{item.id}}">
+              <image class="like-icon" src="/static/icons/like.svg"></image>
+              <text class="like-count">{{item.likes}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

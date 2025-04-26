@@ -1,0 +1,202 @@
+<!-- pages/community/activity/detail/detail.wxml -->
+<view class="container">
+  <!-- 加载中 -->
+  <view class="loading-container" wx:if="{{loading}}">
+    <view class="loading"></view>
+    <text>加载中...</text>
+  </view>
+
+  <!-- 活动详情 -->
+  <view class="activity-detail" wx:else>
+    <!-- 活动封面 -->
+    <image class="activity-cover" src="{{activity.image}}" mode="aspectFill"></image>
+    
+    <!-- 活动标题和状态 -->
+    <view class="activity-header">
+      <view class="activity-title">{{activity.title}}</view>
+      <view class="activity-status {{activity.status === '报名中' ? 'status-enrolling' : 'status-ended'}}">{{activity.status}}</view>
+    </view>
+    
+    <!-- 活动信息 -->
+    <view class="info-section">
+      <view class="info-item">
+        <image class="info-icon" src="/static/icons/time.svg"></image>
+        <text class="info-text">{{activity.time}}</text>
+      </view>
+      <view class="info-item">
+        <image class="info-icon" src="/static/icons/location.svg"></image>
+        <text class="info-text">{{activity.location}}</text>
+      </view>
+      <view class="info-item">
+        <image class="info-icon" src="/static/icons/user.svg"></image>
+        <text class="info-text">已报名 {{activity.participantsCount}}/{{activity.maxParticipants}} 人</text>
+      </view>
+      <view class="info-item" wx:if="{{activity.fee > 0}}">
+        <image class="info-icon" src="/static/icons/money.svg"></image>
+        <text class="info-text">费用: {{activity.fee}}元/人</text>
+      </view>
+      <view class="info-item" wx:else>
+        <image class="info-icon" src="/static/icons/money.svg"></image>
+        <text class="info-text">免费活动</text>
+      </view>
+    </view>
+    
+    <!-- 活动标签 -->
+    <view class="tags-section">
+      <view class="tag" wx:for="{{activity.tags}}" wx:key="*this">{{item}}</view>
+    </view>
+    
+    <!-- 活动描述 -->
+    <view class="section">
+      <view class="section-title">活动详情</view>
+      <view class="section-content">
+        <text class="description">{{activity.description}}</text>
+      </view>
+    </view>
+    
+    <!-- 携带物品 -->
+    <view class="section">
+      <view class="section-title">携带物品</view>
+      <view class="section-content">
+        <text>{{activity.materials}}</text>
+      </view>
+    </view>
+    
+    <!-- 活动须知 -->
+    <view class="section">
+      <view class="section-title">活动须知</view>
+      <view class="section-content">
+        <text>{{activity.notice}}</text>
+      </view>
+    </view>
+    
+    <!-- 组织者信息 -->
+    <view class="section">
+      <view class="section-title">组织者信息</view>
+      <view class="section-content">
+        <view class="organizer-info">
+          <text>组织单位：{{activity.organizer}}</text>
+          <text>联系人：{{activity.contactPerson}}</text>
+          <view class="contact-phone" bindtap="callOrganizer">
+            <text>联系电话：{{activity.contactPhone}}</text>
+            <image class="phone-icon" src="/static/icons/phone.svg"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 已报名用户 -->
+    <view class="section">
+      <view class="section-title">已报名用户</view>
+      <view class="section-content">
+        <view class="participants-list">
+          <view class="participant" wx:for="{{activity.participants}}" wx:key="id">
+            <image class="participant-avatar" src="{{item.avatar}}"></image>
+            <text class="participant-name">{{item.nickname}}</text>
+          </view>
+          <view class="participant more" wx:if="{{activity.participantsCount > 3}}">
+            <text>+{{activity.participantsCount - 3}}人</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 评论区 -->
+    <view class="section">
+      <view class="section-title">活动评论 ({{comments.length}})</view>
+      <view class="section-content">
+        <view class="comments-list">
+          <view class="comment" wx:for="{{comments}}" wx:key="id">
+            <image class="comment-avatar" src="{{item.user.avatar}}"></image>
+            <view class="comment-content">
+              <view class="comment-header">
+                <text class="comment-user">{{item.user.nickname}}</text>
+                <text class="comment-time">{{item.time}}</text>
+              </view>
+              <text class="comment-text">{{item.content}}</text>
+              <view class="comment-actions">
+                <view class="like-button" bindtap="likeComment" data-id="{{item.id}}">
+                  <image class="like-icon" src="/static/icons/like.svg"></image>
+                  <text class="like-count">{{item.likes}}</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        
+        <!-- 评论输入框 -->
+        <view class="comment-input-section">
+          <input class="comment-input" placeholder="写下你的评论..." value="{{newComment}}" bindinput="inputComment" />
+          <button class="comment-submit" bindtap="submitComment">发送</button>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 底部操作栏 -->
+    <view class="bottom-bar">
+      <view class="share-button" bindtap="toggleShareMenu">
+        <image class="action-icon" src="/static/icons/share.svg"></image>
+        <text>分享</text>
+      </view>
+      
+      <block wx:if="{{activity.status === '报名中'}}">
+        <button class="enroll-button" wx:if="{{!isEnrolled}}" bindtap="enrollActivity">立即报名</button>
+        <button class="cancel-button" wx:else bindtap="cancelEnroll">取消报名</button>
+        <button class="reminder-button" bindtap="setActivityReminder">
+          <text class="icon">{{hasReminder ? '⏰' : '🔔'}}</text>
+          {{hasReminder ? '已设提醒' : '设置提醒'}}
+        </button>
+      </block>
+      
+      <block wx:else>
+        <button class="disabled-button">活动已结束</button>
+        <button wx:if="{{isEnrolled}}" class="rating-button" bindtap="openRatingModal">评价活动</button>
+      </block>
+      
+      <button class="checkin-button" wx:if="{{isEnrolled && activity.status === '报名中'}}" bindtap="checkInActivity">活动签到</button>
+    </view>
+    
+    <!-- 分享菜单 -->
+    <view class="share-menu {{showShareMenu ? 'show' : ''}}">
+      <view class="share-menu-mask" bindtap="toggleShareMenu"></view>
+      <view class="share-menu-content">
+        <view class="share-menu-title">分享到</view>
+        <view class="share-options">
+          <button class="share-option" open-type="share">
+            <image class="share-icon" src="/static/icons/wechat.svg"></image>
+            <text>微信好友</text>
+          </button>
+          <view class="share-option" bindtap="shareToMoments">
+            <image class="share-icon" src="/static/icons/moments.svg"></image>
+            <text>朋友圈</text>
+          </view>
+          <view class="share-option" bindtap="generatePoster">
+            <image class="share-icon" src="/static/icons/poster.svg"></image>
+            <text>生成海报</text>
+          </view>
+        </view>
+        <button class="share-cancel" bindtap="toggleShareMenu">取消</button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 活动评价弹窗 -->
+  <view class="rating-modal {{showRatingModal ? 'show' : ''}}">
+    <view class="rating-modal-mask" bindtap="closeRatingModal"></view>
+    <view class="rating-modal-content">
+      <view class="rating-modal-title">活动评价</view>
+      <view class="rating-stars">
+        <view class="star {{userRating >= 1 ? 'active' : ''}}" bindtap="setRating" data-rating="1">★</view>
+        <view class="star {{userRating >= 2 ? 'active' : ''}}" bindtap="setRating" data-rating="2">★</view>
+        <view class="star {{userRating >= 3 ? 'active' : ''}}" bindtap="setRating" data-rating="3">★</view>
+        <view class="star {{userRating >= 4 ? 'active' : ''}}" bindtap="setRating" data-rating="4">★</view>
+        <view class="star {{userRating >= 5 ? 'active' : ''}}" bindtap="setRating" data-rating="5">★</view>
+      </view>
+      <textarea class="rating-textarea" placeholder="请分享您对活动的评价和建议..." value="{{userReview}}" bindinput="inputReview"></textarea>
+      <view class="rating-buttons">
+        <button class="rating-cancel" bindtap="closeRatingModal">取消</button>
+        <button class="rating-submit" bindtap="submitRating">提交评价</button>
+      </view>
+    </view>
+  </view>
+</view>

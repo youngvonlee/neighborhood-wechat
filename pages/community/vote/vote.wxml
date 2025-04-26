@@ -1,0 +1,88 @@
+<!-- pages/community/vote/vote.wxml -->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="header">
+    <view class="title">社区投票</view>
+    <view class="subtitle">参与小区事务决策，共建美好家园</view>
+  </view>
+  
+  <!-- 创建投票按钮 -->
+  <view class="create-vote-btn" bindtap="navigateToCreateVote">
+    <text class="btn-text">发起新投票</text>
+    <text class="btn-icon">+</text>
+  </view>
+  
+  <!-- 投票分类标签 -->
+  <view class="vote-tabs">
+    <view 
+      class="tab {{activeTab === 'all' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="all"
+    >全部</view>
+    <view 
+      class="tab {{activeTab === 'ongoing' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="ongoing"
+    >进行中</view>
+    <view 
+      class="tab {{activeTab === 'ended' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="ended"
+    >已结束</view>
+    <view 
+      class="tab {{activeTab === 'my' ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-tab="my"
+    >我参与的</view>
+  </view>
+  
+  <!-- 投票列表 -->
+  <view class="vote-list">
+    <view wx:if="{{loading}}" class="loading-container">
+      <view class="loading"></view>
+    </view>
+    
+    <view wx:elif="{{votes.length === 0}}" class="empty-container">
+      <image class="empty-icon" src="/static/images/empty.png" mode="aspectFit"></image>
+      <view class="empty-text">暂无投票</view>
+    </view>
+    
+    <view wx:else>
+      <view 
+        wx:for="{{votes}}" 
+        wx:key="id" 
+        class="vote-item"
+        bindtap="navigateToVoteDetail"
+        data-id="{{item.id}}"
+      >
+        <view class="vote-header">
+          <view class="vote-title">{{item.title}}</view>
+          <view class="vote-status {{item.status === '进行中' ? 'ongoing' : 'ended'}}">{{item.status}}</view>
+        </view>
+        
+        <view class="vote-info">
+          <view class="vote-description">{{item.description}}</view>
+          <view class="vote-meta">
+            <view class="vote-initiator">发起人: {{item.initiator}}</view>
+            <view class="vote-time">截止时间: {{item.endTime}}</view>
+          </view>
+          <view class="vote-stats">
+            <view class="vote-participants">{{item.participantCount}}人已参与</view>
+            <view class="vote-progress-container">
+              <view class="vote-progress" style="width: {{item.progressPercentage}}%"></view>
+            </view>
+          </view>
+        </view>
+        
+        <view class="vote-actions">
+          <button 
+            class="vote-btn {{item.hasVoted ? 'voted' : ''}}" 
+            disabled="{{item.status === '已结束' || item.hasVoted}}"
+            catchtap="voteNow"
+            data-id="{{item.id}}"
+          >{{item.hasVoted ? '已投票' : '立即投票'}}</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

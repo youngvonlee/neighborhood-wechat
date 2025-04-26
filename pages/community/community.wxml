@@ -1,0 +1,70 @@
+<!--pages/community/community.wxml-->
+<view class="container">
+  <!-- 标签页导航 -->
+  <view class="tabs">
+    <view class="tab {{activeTab === 'announcements' ? 'active' : ''}}" bindtap="switchTab" data-tab="announcements">小区公告</view>
+    <view class="tab {{activeTab === 'activities' ? 'active' : ''}}" bindtap="switchTab" data-tab="activities">社区活动</view>
+    <view class="tab {{activeTab === 'forums' ? 'active' : ''}}" bindtap="switchTab" data-tab="forums">邻居交流</view>
+  </view>
+
+  <!-- 公告内容 -->
+  <view class="tab-content" wx:if="{{activeTab === 'announcements'}}">
+    <block wx:for="{{announcements}}" wx:key="id">
+      <view class="card" bindtap="viewAnnouncementDetail" data-id="{{item.id}}">
+        <view class="card-content">
+          <view class="announcement-title">{{item.title}}</view>
+          <view class="announcement-date">{{item.date}}</view>
+          <view class="announcement-content">{{item.content}}</view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 社区活动内容 -->
+  <view class="tab-content" wx:if="{{activeTab === 'activities'}}">
+    <block wx:for="{{activities}}" wx:key="id">
+      <view class="card">
+        <view class="card-content">
+          <view class="activity-header">
+            <view class="activity-title">{{item.title}}</view>
+            <view class="activity-status {{item.status === '报名中' ? 'status-active' : ''}}">{{item.status}}</view>
+          </view>
+          <view class="activity-info">
+            <view class="activity-time">
+              <image class="icon-small" src="/static/icons/clock.svg" mode="widthFix"></image>
+              <text>{{item.date}}</text>
+            </view>
+            <view class="activity-location">
+              <image class="icon-small" src="/static/icons/map-pin.svg" mode="widthFix"></image>
+              <text>{{item.location}}</text>
+            </view>
+          </view>
+          <view class="activity-actions">
+            <button class="btn-primary" bindtap="joinActivity" data-id="{{item.id}}">报名参加</button>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 邻居交流内容 -->
+  <view class="tab-content" wx:if="{{activeTab === 'forums'}}">
+    <view class="forum-actions">
+      <button class="btn-primary" bindtap="createNewPost">发布新话题</button>
+    </view>
+    <block wx:for="{{forums}}" wx:key="id">
+      <view class="card" bindtap="viewForumDetail" data-id="{{item.id}}">
+        <view class="card-content">
+          <view class="forum-title">{{item.title}}</view>
+          <view class="forum-meta">
+            <text class="forum-author">{{item.author}}</text>
+            <text class="forum-time">{{item.time}}</text>
+          </view>
+          <view class="forum-stats">
+            <text>{{item.replies}} 回复</text>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

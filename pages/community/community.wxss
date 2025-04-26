@@ -1,0 +1,4 @@
+/* pages/community/community.wxss */
+.container {
+  padding: 20rpx;
+}

@@ -1,0 +1,283 @@
+/* pages/groupbuy/groupbuy.wxss */
+.container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 标签页样式 */
+.tabs {
+  display: flex;
+  background-color: #fff;
+  padding: 20rpx 0;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  font-size: 30rpx;
+  color: #666;
+  padding: 15rpx 0;
+  position: relative;
+}
+
+.tab.active {
+  color: #11cd6e;
+  font-weight: bold;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 6rpx;
+  background-color: #11cd6e;
+  border-radius: 3rpx;
+}
+
+/* 筛选栏样式 */
+.filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 15rpx 20rpx;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.category-scroll {
+  flex: 1;
+  white-space: nowrap;
+}
+
+.category-list {
+  display: inline-flex;
+}
+
+.category-item {
+  padding: 8rpx 20rpx;
+  font-size: 26rpx;
+  color: #666;
+  margin-right: 15rpx;
+  border-radius: 20rpx;
+  background-color: #f5f5f5;
+}
+
+.category-item.active {
+  color: #fff;
+  background-color: #11cd6e;
+}
+
+.sort-btn {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx;
+  color: #666;
+  margin-left: 15rpx;
+}
+
+.sort-icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-left: 5rpx;
+}
+
+/* 团购活动卡片样式 */
+.activities-container {
+  padding-bottom: 120rpx; /* 为底部按钮留出空间 */
+}
+
+.activity-card {
+  background-color: #fff;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.activity-card.completed {
+  opacity: 0.8;
+}
+
+.activity-image {
+  width: 100%;
+  height: 300rpx;
+}
+
+.activity-info {
+  padding: 20rpx;
+}
+
+.activity-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+  color: #333;
+}
+
+.activity-description {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 15rpx;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-price-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.activity-price {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #ff4d4f;
+  margin-right: 15rpx;
+}
+
+.activity-original-price {
+  font-size: 26rpx;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.activity-progress {
+  margin-bottom: 15rpx;
+}
+
+.activity-progress-text {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 8rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.activity-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15rpx;
+}
+
+.activity-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.action-btns {
+  display: flex;
+  align-items: center;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 10rpx;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn::after {
+  border: none;
+}
+
+.action-icon {
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.join-btn {
+  background-color: #11cd6e;
+  color: #fff;
+  font-size: 26rpx;
+  padding: 10rpx 30rpx;
+  border-radius: 30rpx;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.status-tag {
+  background-color: #999;
+  color: #fff;
+  font-size: 24rpx;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+/* 发起新团购按钮 */
+.create-btn-container {
+  position: fixed;
+  bottom: 30rpx;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0 30rpx;
+}
+
+.create-btn {
+  background-color: #11cd6e;
+  color: #fff;
+  font-size: 30rpx;
+  padding: 20rpx 0;
+  border-radius: 40rpx;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 4rpx 12rpx rgba(17, 205, 110, 0.3);
+}
+
+/* 新增功能样式 */
+.filter-bar {
+  display: flex;
+  background-color: #fff;
+  padding: 15rpx 20rpx;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.filter-item {
+  font-size: 24rpx;
+  color: #666;
+  margin-right: 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.filter-item.active {
+  color: #11cd6e;
+}
+
+.share-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 10rpx;
+}
+
+.reminder-btn {
+  background-color: #fff;
+  color: #11cd6e;
+  border: 1rpx solid #11cd6e;
+  font-size: 24rpx;
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+  margin-left: 15rpx;
+  line-height: 1.5;
+}

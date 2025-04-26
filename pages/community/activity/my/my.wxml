@@ -1,0 +1,118 @@
+<!-- pages/community/activity/my/my.wxml -->
+<view class="container">
+  <!-- 标签页导航 -->
+  <view class="tabs">
+    <view 
+      wx:for="{{tabs}}" 
+      wx:key="index" 
+      class="tab {{currentTab === index ? 'active' : ''}}" 
+      bindtap="switchTab" 
+      data-index="{{index}}"
+    >
+      {{item}}
+    </view>
+  </view>
+
+  <!-- 活动列表 -->
+  <view class="activity-list">
+    <view wx:if="{{loading}}" class="loading-container">
+      <view class="loading"></view>
+    </view>
+    
+    <view wx:elif="{{activities.length === 0}}" class="empty-container">
+      <image class="empty-icon" src="/static/images/empty.png" mode="aspectFit"></image>
+      <view class="empty-text">暂无{{tabs[currentTab]}}活动</view>
+    </view>
+    
+    <view wx:else>
+      <view 
+        wx:for="{{activities}}" 
+        wx:key="id" 
+        class="activity-card"
+        bindtap="viewActivityDetail"
+        data-id="{{item.id}}"
+      >
+        <image class="activity-image" src="{{item.image}}" mode="aspectFill"></image>
+        
+        <view class="activity-info">
+          <view class="activity-title">{{item.title}}</view>
+          
+          <view class="activity-meta">
+            <view class="activity-time">
+              <text class="iconfont icon-time"></text>
+              <text>{{item.time}}</text>
+            </view>
+            
+            <view class="activity-location">
+              <text class="iconfont icon-location"></text>
+              <text>{{item.location}}</text>
+            </view>
+          </view>
+          
+          <view class="activity-tags">
+            <view class="status-tag {{item.status === '已结束' ? 'ended' : 'ongoing'}}">{{item.status}}</view>
+            <view wx:for="{{item.tags}}" wx:key="*this" wx:for-item="tag" class="tag">{{tag}}</view>
+          </view>
+        </view>
+        
+        <!-- 操作按钮 -->
+        <view class="activity-actions" catchtap="stopPropagation">
+          <!-- 已报名活动的操作 -->
+          <block wx:if="{{currentTab === 0}}">
+            <button 
+              wx:if="{{item.status !== '已结束'}}" 
+              class="action-btn cancel-btn" 
+              catchtap="cancelEnroll" 
+              data-id="{{item.id}}"
+            >取消报名</button>
+            
+            <button 
+              wx:if="{{item.status !== '已结束'}}" 
+              class="action-btn" 
+              catchtap="addCalendarReminder" 
+              data-id="{{item.id}}"
+            >添加提醒</button>
+            
+            <button 
+              wx:if="{{item.status === '进行中'}}" 
+              class="action-btn primary-btn" 
+              catchtap="checkInActivity" 
+              data-id="{{item.id}}"
+            >立即签到</button>
+          </block>
+          
+          <!-- 已参加活动的操作 -->
+          <block wx:elif="{{currentTab === 1}}">
+            <button 
+              class="action-btn" 
+              catchtap="shareActivity" 
+              data-id="{{item.id}}"
+            >分享活动</button>
+            
+            <button 
+              class="action-btn primary-btn" 
+              catchtap="rateActivity" 
+              data-id="{{item.id}}"
+            >评价活动</button>
+          </block>
+          
+          <!-- 已收藏活动的操作 -->
+          <block wx:elif="{{currentTab === 2}}">
+            <button 
+              class="action-btn cancel-btn" 
+              catchtap="cancelFavorite" 
+              data-id="{{item.id}}"
+            >取消收藏</button>
+            
+            <button 
+              wx:if="{{item.status !== '已结束'}}" 
+              class="action-btn primary-btn" 
+              catchtap="enrollActivity" 
+              data-id="{{item.id}}"
+            >立即报名</button>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

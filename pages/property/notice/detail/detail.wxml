@@ -1,0 +1,95 @@
+<!-- pages/property/notice/detail/detail.wxml -->
+<view class="container" wx:if="{{notice}}">
+  <!-- 通知标题 -->
+  <view class="notice-header">
+    <view class="notice-title">{{notice.title}}</view>
+    <view class="notice-meta">
+      <view class="notice-time">{{notice.time}}</view>
+      <view class="notice-tag {{notice.type}}">{{notice.typeText}}</view>
+    </view>
+  </view>
+
+  <!-- 通知内容 -->
+  <view class="notice-content">
+    <text>{{notice.content}}</text>
+  </view>
+
+  <!-- 附件（如果有） -->
+  <view class="attachments" wx:if="{{notice.attachments && notice.attachments.length > 0}}">
+    <view class="section-title">附件</view>
+    <view class="attachment-list">
+      <view class="attachment-item" wx:for="{{notice.attachments}}" wx:key="name" bindtap="previewAttachment" data-index="{{index}}">
+        <image class="attachment-icon" src="/static/icons/{{item.type}}.svg" mode="widthFix"></image>
+        <view class="attachment-info">
+          <view class="attachment-name">{{item.name}}</view>
+          <view class="attachment-size">{{item.size}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 相关图片（如果有） -->
+  <view class="images" wx:if="{{notice.images && notice.images.length > 0}}">
+    <view class="section-title">相关图片</view>
+    <view class="image-list">
+      <image 
+        class="notice-image" 
+        wx:for="{{notice.images}}" 
+        wx:key="*this" 
+        src="{{item}}" 
+        mode="aspectFill"
+        bindtap="previewImage"
+        data-src="{{item}}"
+      ></image>
+    </view>
+  </view>
+  
+  <!-- 确认状态 -->
+  <view class="confirm-status" wx:if="{{notice.needConfirm}}">
+    <view class="status-label">确认状态：</view>
+    <view class="status-value {{notice.isConfirmed ? 'confirmed' : 'unconfirmed'}}">
+      {{notice.isConfirmed ? '已确认' : '未确认'}}
+    </view>
+    <view class="confirm-time" wx:if="{{notice.isConfirmed && notice.confirmedTime}}">
+      确认时间：{{notice.confirmedTime}}
+    </view>
+  </view>
+
+  <!-- 操作按钮组 -->
+  <view class="action-buttons">
+    <button class="action-btn" bindtap="contactProperty">
+      <image class="btn-icon" src="/static/icons/phone.svg" mode="widthFix"></image>
+      联系物业
+    </button>
+    <button class="action-btn" bindtap="shareNotice" open-type="share">
+      <image class="btn-icon" src="/static/icons/share.svg" mode="widthFix"></image>
+      分享
+    </button>
+    <button class="action-btn" bindtap="reportIssue">
+      <image class="btn-icon" src="/static/icons/message-square.svg" mode="widthFix"></image>
+      反馈
+    </button>
+  </view>
+
+  <!-- 相关通知 -->
+  <view class="related-notices" wx:if="{{relatedNotices && relatedNotices.length > 0}}">
+    <view class="section-title">相关通知</view>
+    <view class="related-notice-list">
+      <view class="related-notice-item" wx:for="{{relatedNotices}}" wx:key="id" bindtap="viewRelatedNotice" data-id="{{item.id}}">
+        <view class="related-notice-title">{{item.title}}</view>
+        <view class="related-notice-time">{{item.time}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-bar" wx:if="{{notice.needConfirm && !notice.isConfirmed}}">
+    <button class="confirm-btn" bindtap="confirmNotice">确认已读</button>
+  </view>
+
+  <!-- 已确认提示 -->
+  <view class="confirmed-tip" wx:if="{{notice.needConfirm && notice.isConfirmed}}">
+    <image class="confirmed-icon" src="/static/icons/check-circle.svg" mode="widthFix"></image>
+    <text>已确认</text>
+  </view>
+</view>

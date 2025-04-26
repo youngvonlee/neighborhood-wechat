@@ -1,0 +1,174 @@
+<!--pages/property/service/service.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">物业服务</view>
+    <view class="page-subtitle">一站式物业服务平台</view>
+  </view>
+
+  <!-- 社区公告 -->
+  <view class="announcement-section">
+    <view class="section-header">
+      <view class="section-title">社区公告</view>
+      <view class="section-more" bindtap="viewAllAnnouncements">查看更多</view>
+    </view>
+    <view class="announcement-list">
+      <view class="announcement-item" wx:for="{{announcements}}" wx:key="id" bindtap="viewAnnouncementDetail" data-id="{{item.id}}">
+        <view class="announcement-content">
+          <view class="announcement-title {{item.isImportant ? 'important' : ''}}">{{item.title}}</view>
+          <view class="announcement-brief">{{item.content}}</view>
+          <view class="announcement-date">{{item.date}}</view>
+        </view>
+        <view class="announcement-arrow"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 服务卡片区域 -->
+  <view class="service-cards">
+    <!-- 物业缴费卡片 -->
+    <view class="service-card" bindtap="navigateToPayment">
+      <view class="card-icon payment-icon"></view>
+      <view class="card-content">
+        <view class="card-title">物业缴费</view>
+        <view class="card-desc">查询和支付物业相关费用</view>
+        <view class="card-status" wx:if="{{unpaidCount > 0}}">
+          <view class="status-badge">{{unpaidCount}}项待缴</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 访客登记卡片 -->
+    <view class="service-card" bindtap="navigateToVisitor">
+      <view class="card-icon visitor-icon"></view>
+      <view class="card-content">
+        <view class="card-title">访客登记</view>
+        <view class="card-desc">提前登记访客信息，便捷进出小区</view>
+        <view class="card-status" wx:if="{{pendingVisitorCount > 0}}">
+          <view class="status-badge">{{pendingVisitorCount}}位待审核</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 物业通知卡片 -->
+    <view class="service-card" bindtap="navigateToNotice">
+      <view class="card-icon notice-icon"></view>
+      <view class="card-content">
+        <view class="card-title">物业通知</view>
+        <view class="card-desc">查看物业发布的通知和公告</view>
+        <view class="card-status" wx:if="{{unreadNoticeCount > 0}}">
+          <view class="status-badge important">{{unreadNoticeCount}}条未读</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 缴费记录卡片 -->
+    <view class="service-card" bindtap="navigateToRecords">
+      <view class="card-icon records-icon"></view>
+      <view class="card-content">
+        <view class="card-title">缴费记录</view>
+        <view class="card-desc">查询和导出历史缴费记录</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 优惠活动区域 -->
+  <view class="promotion-section">
+    <view class="section-header">
+      <view class="section-title">缴费优惠</view>
+      <view class="section-more" bindtap="viewAllPromotions">查看更多</view>
+    </view>
+    <view class="promotion-list">
+      <view class="promotion-item" wx:for="{{promotions}}" wx:key="id" bindtap="viewPromotionDetail" data-id="{{item.id}}">
+        <image class="promotion-image" src="{{item.image}}" mode="aspectFill"></image>
+        <view class="promotion-content">
+          <view class="promotion-title">{{item.title}}</view>
+          <view class="promotion-period">{{item.period}}</view>
+          <view class="promotion-tag">{{item.tag}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 物业服务区域 -->
+  <view class="quick-service-section">
+    <view class="section-header">
+      <view class="section-title">快捷服务</view>
+    </view>
+    <view class="quick-service-grid">
+      <view class="quick-service-item" bindtap="reportRepair">
+        <view class="quick-service-icon repair-icon"></view>
+        <view class="quick-service-name">报修服务</view>
+      </view>
+      <view class="quick-service-item" bindtap="contactProperty">
+        <view class="quick-service-icon contact-icon"></view>
+        <view class="quick-service-name">联系物业</view>
+      </view>
+      <view class="quick-service-item" bindtap="packageReceive">
+        <view class="quick-service-icon package-icon"></view>
+        <view class="quick-service-name">包裹领取</view>
+      </view>
+      <view class="quick-service-item" bindtap="parkingService">
+        <view class="quick-service-icon parking-icon"></view>
+        <view class="quick-service-name">停车服务</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 缴费优惠券 -->
+  <view class="coupon-section">
+    <view class="section-header">
+      <view class="section-title">我的优惠券</view>
+      <view class="section-more" bindtap="viewAllCoupons">查看全部</view>
+    </view>
+    <view class="coupon-list">
+      <view class="coupon-item" wx:for="{{coupons}}" wx:key="id" bindtap="useCoupon" data-id="{{item.id}}">
+        <view class="coupon-left">
+          <view class="coupon-amount">¥<text class="amount-value">{{item.amount}}</text></view>
+          <view class="coupon-condition">满{{item.condition}}元可用</view>
+        </view>
+        <view class="coupon-right">
+          <view class="coupon-name">{{item.name}}</view>
+          <view class="coupon-validity">有效期至：{{item.validity}}</view>
+          <view class="coupon-use-btn">立即使用</view>
+        </view>
+      </view>
+    </view>
+    <view class="empty-coupon" wx:if="{{coupons.length === 0}}">
+      <view class="empty-text">暂无可用优惠券</view>
+      <view class="get-coupon-btn" bindtap="getCoupons">获取优惠券</view>
+    </view>
+  </view>
+
+  <!-- 社区活动区域 -->
+  <view class="community-activity-section">
+    <view class="section-header">
+      <view class="section-title">社区活动</view>
+      <view class="section-more" bindtap="viewAllActivities">查看全部</view>
+    </view>
+    <view class="activity-list">
+      <view class="activity-item" wx:for="{{communityActivities}}" wx:key="id" bindtap="joinCommunityActivity" data-id="{{item.id}}">
+        <view class="activity-content">
+          <view class="activity-title">{{item.title}}</view>
+          <view class="activity-info">时间：{{item.time}}</view>
+          <view class="activity-info">地点：{{item.location}}</view>
+          <view class="activity-join-btn">立即报名</view>
+        </view>
+        <view class="activity-status">{{item.status}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 便民服务区域 -->
+  <view class="convenient-service-section">
+    <view class="section-header">
+      <view class="section-title">便民服务</view>
+    </view>
+    <view class="service-grid">
+      <view class="service-grid-item" wx:for="{{convenientServices}}" wx:key="id" bindtap="useConvenientService" data-id="{{item.id}}">
+        <view class="service-grid-icon {{item.icon}}"></view>
+        <view class="service-grid-name">{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+</view>

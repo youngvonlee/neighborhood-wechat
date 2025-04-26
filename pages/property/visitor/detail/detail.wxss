@@ -1,0 +1,268 @@
+/* pages/property/visitor/detail/detail.wxss */
+
+.container {
+  padding: 30rpx;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+/* 访客信息卡片 */
+.visitor-card {
+  background-color: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+}
+
+.visitor-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.visitor-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  overflow: hidden;
+  margin-right: 20rpx;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.visitor-avatar image {
+  width: 100%;
+  height: 100%;
+}
+
+.avatar-placeholder {
+  font-size: 48rpx;
+  color: #999;
+}
+
+.visitor-basic-info {
+  flex: 1;
+}
+
+.visitor-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.visitor-phone {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.visitor-status {
+  display: inline-block;
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 30rpx;
+  color: #fff;
+}
+
+.visitor-status.upcoming {
+  background-color: #4caf50;
+}
+
+.visitor-status.completed {
+  background-color: #9e9e9e;
+}
+
+.visitor-status.cancelled {
+  background-color: #f44336;
+}
+
+.visitor-status.active {
+  background-color: #2196f3;
+}
+
+.qrcode-preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 20rpx;
+}
+
+.qrcode-thumbnail {
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 10rpx;
+}
+
+.qrcode-preview text {
+  font-size: 22rpx;
+  color: #2196f3;
+}
+
+/* 信息区域 */
+.info-section {
+  padding: 30rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.info-section:last-child {
+  border-bottom: none;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+  color: #333;
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 16rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.info-label {
+  width: 180rpx;
+  color: #666;
+}
+
+.info-value {
+  flex: 1;
+  color: #333;
+}
+
+/* 操作按钮 */
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30rpx;
+}
+
+.action-btn {
+  flex: 1;
+  margin: 0 10rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.action-btn:first-child {
+  margin-left: 0;
+}
+
+.action-btn:last-child {
+  margin-right: 0;
+}
+
+.action-btn.primary {
+  background-color: #2196f3;
+  color: #fff;
+}
+
+.action-btn.warning {
+  background-color: #f44336;
+  color: #fff;
+}
+
+.btn-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+}
+
+/* 二维码弹窗 */
+.qrcode-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.qrcode-modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.qrcode-container {
+  position: relative;
+  width: 600rpx;
+  background-color: #fff;
+  border-radius: 16rpx;
+  padding: 40rpx;
+  text-align: center;
+  z-index: 1001;
+}
+
+.qrcode-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.qrcode-visitor-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 30rpx;
+}
+
+.qrcode-image {
+  width: 400rpx;
+  height: 400rpx;
+  margin: 0 auto 30rpx;
+}
+
+.qrcode-tip {
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 30rpx;
+}
+
+.qrcode-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.qrcode-btn {
+  flex: 1;
+  margin: 0 10rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  border-radius: 40rpx;
+}
+
+.qrcode-btn.close {
+  background-color: #f5f5f5;
+  color: #666;
+}

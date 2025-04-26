@@ -1,0 +1,264 @@
+/* pages/property/package/package.wxss */
+
+/* 页面容器 */
+.container {
+  padding: 30rpx;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+/* 页面标题 */
+.page-header {
+  margin-bottom: 30rpx;
+}
+
+.page-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.page-subtitle {
+  font-size: 28rpx;
+  color: #666;
+  margin-top: 10rpx;
+}
+
+/* 标签页导航 */
+.tabs {
+  display: flex;
+  background-color: #fff;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 24rpx 0;
+  font-size: 28rpx;
+  color: #666;
+  position: relative;
+}
+
+.tab-item.active {
+  color: #1890ff;
+  font-weight: bold;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40rpx;
+  height: 6rpx;
+  background-color: #1890ff;
+  border-radius: 3rpx;
+}
+
+/* 加载中 */
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 0;
+}
+
+.loading-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border: 6rpx solid #f3f3f3;
+  border-top: 6rpx solid #1890ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* 包裹列表 */
+.package-list {
+  margin-bottom: 30rpx;
+}
+
+.package-item {
+  background-color: #fff;
+  border-radius: 12rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.package-header {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.courier-logo {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 8rpx;
+  background-color: #f5f5f5;
+  margin-right: 20rpx;
+  background-size: 60rpx;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 快递公司logo样式 */
+.courier-logo.顺丰速运 {
+  background-color: #ff7800;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZiI+PHBhdGggZD0iTTEyIDJMNCA4djhsOCA2IDgtNlY4bC04LTZ6bTAgM2w1IDMuNXY1TDEyIDE3bC01LTMuNXYtNWw1LTMuNXoiPjwvcGF0aD48L3N2Zz4=');
+}
+
+.courier-logo.京东快递 {
+  background-color: #d71e06;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZiI+PHBhdGggZD0iTTEyIDJDNi40NzcgMiAyIDYuNDc3IDIgMTJzNC40NzcgMTAgMTAgMTAgMTAtNC40NzcgMTAtMTBTMTcuNTIzIDIgMTIgMnptLTIgMTVIN3YtMmgzdi0ySDd2LTJoM1Y5SDd2LTJINTV2MTBoMnptOSAwYy0xLjEwNSAwLTItLjg5NS0yLTJoMmMwIC41NTIuNDQ4IDEgMSAxczEtLjQ0OCAxLTFjMC0uMzU2LS4xODktLjY4LS41LTEuMDIyQzE5LjU2NiAxMi4yNTQgMTggMTEuNTE3IDE4IDEwYzAtMS42NTcgMS4zNDMtMyAzLTN2MmMtLjU1MiAwLTEgLjQ0OC0xIDFzLjQ0OCAxIDEgMWMuMzU2IDAgLjY4LS4xODkgMS4wMjItLjVDMjIuNzQ2IDkuNTY2IDI0IDguNDgzIDI0IDEwYzAgMS42NTctMS4zNDMgMy0zIDMtLjU1MiAwLTEgLjQ0OC0xIDFzLjQ0OCAxIDEgMXYyeiI+PC9wYXRoPjwvc3ZnPg==');
+}
+
+.courier-logo.中通快递 {
+  background-color: #003c87;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZiI+PHBhdGggZD0iTTEyIDJMNCA4djhsOCA2IDgtNlY4bC04LTZ6bTAgM2w1IDMuNXY1TDEyIDE3bC01LTMuNXYtNWw1LTMuNXoiPjwvcGF0aD48L3N2Zz4=');
+}
+
+.courier-logo.圆通快递 {
+  background-color: #2e5e86;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZiI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiPjwvY2lyY2xlPjxwYXRoIGQ9Ik0xMiA2djEybS02LTZoMTIiIHN0cm9rZT0iIzJlNWU4NiIgc3Ryb2tlLXdpZHRoPSIyIj48L3BhdGg+PC9zdmc+');
+}
+
+.courier-logo.申通快递 {
+  background-color: #00a0e9;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZiI+PHBhdGggZD0iTTEyIDJMNCA4djhsOCA2IDgtNlY4bC04LTZ6bTAgM2w1IDMuNXY1TDEyIDE3bC01LTMuNXYtNWw1LTMuNXoiPjwvcGF0aD48L3N2Zz4=');
+}
+
+.courier-logo.韵达快递 {
+  background-color: #52c41a;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iI2ZmZiI+PHBhdGggZD0iTTEyIDJMNCA4djhsOCA2IDgtNlY4bC04LTZ6bTAgM2w1IDMuNXY1TDEyIDE3bC01LTMuNXYtNWw1LTMuNXoiPjwvcGF0aD48L3N2Zz4=');
+}
+
+.package-info {
+  flex: 1;
+}
+
+.courier-name {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 6rpx;
+}
+
+.tracking-number {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.package-status {
+  font-size: 26rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.package-status.expired {
+  background-color: #f5f5f5;
+  color: #999;
+}
+
+.package-content {
+  padding: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 10rpx;
+  font-size: 26rpx;
+}
+
+.info-label {
+  color: #999;
+  width: 160rpx;
+}
+
+.info-value {
+  color: #333;
+  flex: 1;
+}
+
+.info-value.highlight {
+  color: #1890ff;
+  font-weight: bold;
+}
+
+.info-value.warning {
+  color: #faad14;
+}
+
+.info-value.expired {
+  color: #999;
+}
+
+.package-actions {
+  display: flex;
+  padding: 20rpx;
+  gap: 20rpx;
+}
+
+.action-btn {
+  flex: 1;
+  font-size: 28rpx;
+  padding: 16rpx 0;
+  border-radius: 8rpx;
+  text-align: center;
+  line-height: 1;
+}
+
+.action-btn.primary {
+  background-color: #1890ff;
+  color: #fff;
+}
+
+.action-btn.secondary {
+  background-color: #f5f5f5;
+  color: #666;
+}
+
+/* 空列表 */
+.empty-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 0;
+}
+
+.empty-icon {
+  width: 120rpx;
+  height: 120rpx;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZDBkMGQwIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci1wYWNrYWdlIj48bGluZSB4MT0iMTYuNSIgeTE9IjkuNSIgeDI9IjcuNSIgeTI9IjQuNSI+PC9saW5lPjxwb2x5Z29uIHBvaW50cz0iMTYuNSA5LjUgOCAxMyAxNi41IDE2LjUgMjEgMTMgMTYuNSA5LjUiPjwvcG9seWdvbj48cGF0aCBkPSJNMyA3djEwYTIgMiAwIDAgMCAxIDEuNzNsNyA0YTIgMiAwIDAgMCAyIDBsNy00QTIgMiAwIDAgMCAyMSAxN1Y3YTIgMiAwIDAgMC0xLTEuNzNsLTctNGEyIDIgMCAwIDAtMiAwbC03IDRBMiAyIDAgMCAwIDMgN3oiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIzLjI3IDYuOTYgMTIgMTIuMDEgMjAuNzMgNi45NiI+PC9wb2x5bGluZT48bGluZSB4MT0iMTIiIHkxPSIyMi4wOCIgeDI9IjEyIiB5Mj0iMTIiPjwvbGluZT48L3N2Zz4=');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-bottom: 20rpx;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+}

@@ -1,0 +1,85 @@
+<!--pages/property/payment/records/records.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">缴费记录</view>
+    <view class="page-subtitle">查询和导出历史缴费记录</view>
+  </view>
+
+  <!-- 筛选条件 -->
+  <view class="filter-section">
+    <view class="filter-row">
+      <view class="filter-label">缴费类型</view>
+      <view class="filter-picker">
+        <picker bindchange="bindTypeChange" value="{{typeIndex}}" range="{{typeOptions}}">
+          <view class="picker-value">{{typeOptions[typeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="filter-row">
+      <view class="filter-label">时间范围</view>
+      <view class="date-range">
+        <picker mode="date" value="{{startDate}}" start="2022-01-01" end="2023-12-31" bindchange="bindStartDateChange">
+          <view class="date-picker">{{startDate}}</view>
+        </picker>
+        <view class="date-separator">至</view>
+        <picker mode="date" value="{{endDate}}" start="2022-01-01" end="2023-12-31" bindchange="bindEndDateChange">
+          <view class="date-picker">{{endDate}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="filter-actions">
+      <button class="btn-search" bindtap="searchRecords">查询</button>
+      <button class="btn-reset" bindtap="resetFilters">重置</button>
+    </view>
+  </view>
+
+  <!-- 记录列表 -->
+  <view class="records-section">
+    <view class="records-header">
+      <view class="records-count">共 {{records.length}} 条记录</view>
+      <view class="export-btn" bindtap="exportRecords">导出记录</view>
+    </view>
+    
+    <view class="records-list">
+      <block wx:for="{{records}}" wx:key="id">
+        <view class="record-item" bindtap="viewRecordDetail" data-id="{{item.id}}">
+          <view class="record-info">
+            <view class="record-type">{{item.type}}</view>
+            <view class="record-period">{{item.period}}</view>
+            <view class="record-date">支付日期: {{item.paidDate}}</view>
+          </view>
+          <view class="record-amount">¥ {{item.amount}}</view>
+          <view class="record-status">已缴费</view>
+        </view>
+      </block>
+    </view>
+    
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{records.length === 0}}">
+      <image class="empty-icon" src="/images/empty.png" mode="aspectFit"></image>
+      <text>暂无符合条件的缴费记录</text>
+    </view>
+  </view>
+
+  <!-- 导出选项弹窗 -->
+  <view class="export-modal" wx:if="{{showExportModal}}">
+    <view class="modal-mask" bindtap="hideExportModal"></view>
+    <view class="modal-content">
+      <view class="modal-title">导出方式</view>
+      <view class="export-options">
+        <view class="export-option" bindtap="exportAsPDF">
+          <view class="option-icon pdf-icon"></view>
+          <view class="option-name">PDF格式</view>
+        </view>
+        <view class="export-option" bindtap="exportAsExcel">
+          <view class="option-icon excel-icon"></view>
+          <view class="option-name">Excel格式</view>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn-cancel" bindtap="hideExportModal">取消</button>
+      </view>
+    </view>
+  </view>
+</view>

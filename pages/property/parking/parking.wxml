@@ -1,0 +1,139 @@
+<!--pages/property/parking/parking.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="header-title">停车位管理</view>
+    <view class="header-subtitle">查询、申请、续租小区车位</view>
+  </view>
+
+  <!-- 标签页切换 -->
+  <view class="tabs">
+    <view class="tab {{activeTab === 'available' ? 'active' : ''}}" bindtap="switchTab" data-tab="available">可用车位</view>
+    <view class="tab {{activeTab === 'my' ? 'active' : ''}}" bindtap="switchTab" data-tab="my">我的车位</view>
+  </view>
+  
+  <!-- 临时停车查询 -->
+  <view class="temp-parking-query" bindtap="queryTempParking">
+    <view class="query-icon"></view>
+    <view class="query-text">临时停车查询</view>
+  </view>
+
+  <!-- 可用车位列表 -->
+  <block wx:if="{{activeTab === 'available'}}">
+    <!-- 筛选栏 -->
+    <view class="filter-bar">
+      <view class="filter-btn" bindtap="showFilter">
+        <text>筛选</text>
+        <text class="icon">▼</text>
+      </view>
+      <view class="filter-tags">
+        <view class="filter-tag" wx:if="{{filters.area}}">{{filters.area}}</view>
+        <view class="filter-tag" wx:if="{{filters.type}}">{{filters.type}}</view>
+        <view class="filter-tag" wx:if="{{filters.status}}">{{filters.status}}</view>
+      </view>
+    </view>
+
+    <!-- 车位列表 -->
+    <view class="parking-list">
+      <block wx:for="{{parkingSpots}}" wx:key="id">
+        <view class="parking-item">
+          <view class="parking-info">
+            <view class="parking-number">{{item.area}}{{item.number}}</view>
+            <view class="parking-type">{{item.type}}</view>
+            <view class="parking-price">{{item.price}}</view>
+          </view>
+          <view class="parking-status {{item.status === '可租用' ? 'status-available' : item.status === '已租用' ? 'status-occupied' : 'status-maintenance'}}">
+            {{item.status}}
+          </view>
+          <view class="parking-action" wx:if="{{item.status === '可租用'}}" bindtap="applyForParking" data-id="{{item.id}}">
+            申请租用
+          </view>
+        </view>
+      </block>
+    </view>
+  </block>
+
+  <!-- 我的车位 -->
+  <block wx:if="{{activeTab === 'my'}}">
+    <view class="my-parking-list">
+      <block wx:for="{{myParkingSpots}}" wx:key="id">
+        <view class="my-parking-item">
+          <view class="parking-info">
+            <view class="parking-number">{{item.area}}{{item.number}}</view>
+            <view class="parking-type">{{item.type}}</view>
+            <view class="parking-expire">到期时间：{{item.expireDate}}</view>
+            <view class="parking-fee" wx:if="{{item.unpaidFee}}">未缴费用：<text class="fee-amount">{{item.unpaidFee}}元</text></view>
+          </view>
+          <view class="parking-actions">
+            <view class="parking-action" bindtap="renewParking" data-id="{{item.id}}">
+              续租
+            </view>
+            <view class="parking-action pay-action" bindtap="payParkingFee" data-id="{{item.id}}" wx:if="{{item.unpaidFee}}">
+              缴费
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{myParkingSpots.length === 0}}">
+      <image class="empty-icon" src="/static/icons/car.svg" mode="aspectFit"></image>
+      <view class="empty-text">您还没有租用车位</view>
+      <view class="empty-action" bindtap="switchTab" data-tab="available">查看可用车位</view>
+    </view>
+  </block>
+
+  <!-- 筛选弹窗 -->
+  <view class="filter-modal {{filterVisible ? 'show' : ''}}">
+    <view class="filter-mask" bindtap="hideFilter"></view>
+    <view class="filter-content">
+      <view class="filter-title">筛选条件</view>
+      
+      <!-- 区域筛选 -->
+      <view class="filter-section">
+        <view class="section-title">区域</view>
+        <view class="filter-options">
+          <block wx:for="{{areas}}" wx:key="*this">
+            <view class="filter-option {{filters.area === (item === '全部' ? '' : item) ? 'selected' : ''}}" 
+                  bindtap="selectFilter" data-type="area" data-value="{{item}}">
+              {{item}}
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <!-- 车位类型筛选 -->
+      <view class="filter-section">
+        <view class="section-title">车位类型</view>
+        <view class="filter-options">
+          <block wx:for="{{types}}" wx:key="*this">
+            <view class="filter-option {{filters.type === (item === '全部' ? '' : item) ? 'selected' : ''}}" 
+                  bindtap="selectFilter" data-type="type" data-value="{{item}}">
+              {{item}}
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <!-- 状态筛选 -->
+      <view class="filter-section">
+        <view class="section-title">状态</view>
+        <view class="filter-options">
+          <block wx:for="{{statuses}}" wx:key="*this">
+            <view class="filter-option {{filters.status === (item === '全部' ? '' : item) ? 'selected' : ''}}" 
+                  bindtap="selectFilter" data-type="status" data-value="{{item}}">
+              {{item}}
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <!-- 筛选按钮 -->
+      <view class="filter-buttons">
+        <view class="reset-btn" bindtap="resetFilter">重置</view>
+        <view class="confirm-btn" bindtap="applyFilter">确定</view>
+      </view>
+    </view>
+  </view>
+</view>

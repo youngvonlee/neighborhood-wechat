@@ -1,0 +1,55 @@
+<!--pages/profile/profile.wxml-->
+<view class="container">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <view class="user-info">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" mode="aspectFill"></image>
+      <view class="user-details">
+        <view class="nickname">{{userInfo.nickName}}</view>
+        <view class="user-address">{{userInfo.building}} {{userInfo.room}}</view>
+        <view class="user-phone">{{userInfo.phone}}</view>
+      </view>
+    </view>
+    <view class="edit-profile" bindtap="editProfile">
+      <text>编辑资料</text>
+    </view>
+  </view>
+
+  <!-- 功能菜单 -->
+  <view class="menu-section">
+    <view class="section-title">我的服务</view>
+    <view class="menu-grid">
+      <block wx:for="{{menuList}}" wx:key="id">
+        <navigator url="{{item.path}}" class="menu-item">
+          <view class="menu-icon">
+            <image src="{{item.icon}}" mode="aspectFit"></image>
+          </view>
+          <view class="menu-title">{{item.title}}</view>
+        </navigator>
+      </block>
+    </view>
+  </view>
+
+  <!-- 设置列表 -->
+  <view class="settings-section">
+    <view class="section-title">设置</view>
+    <view class="settings-list">
+      <block wx:for="{{settingsList}}" wx:key="id">
+        <navigator url="{{item.path}}" class="settings-item">
+          <view class="settings-icon">
+            <image src="{{item.icon}}" mode="aspectFit"></image>
+          </view>
+          <view class="settings-title">{{item.title}}</view>
+          <view class="settings-arrow">
+            <image src="/static/icons/chevron-right.svg" mode="aspectFit"></image>
+          </view>
+        </navigator>
+      </block>
+    </view>
+  </view>
+
+  <!-- 退出登录 -->
+  <view class="logout-button" bindtap="logout">
+    <text>退出登录</text>
+  </view>
+</view>

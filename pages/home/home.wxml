@@ -1,0 +1,201 @@
+<!--pages/home/home.wxml-->
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <view>
+      <view class="greeting">您好，{{userName}}</view>
+      <view class="location">
+        <image class="location-icon" src="/static/icons/map-pin.svg" mode="widthFix"></image>
+        <text>{{community}}</text>
+      </view>
+    </view>
+    <view class="header-icons">
+      <!-- Placeholder for potential icons like notifications -->
+    </view>
+  </view>
+
+  <!-- Quick Links -->
+  <view class="quick-links">
+    <navigator url="/pages/food/food" class="quick-link-item bg-orange-light">
+      <view class="quick-link-content">
+        <image class="quick-link-icon" src="/static/icons/chef-hat.svg" mode="widthFix"></image>
+        <text class="quick-link-text">点餐</text>
+      </view>
+    </navigator>
+    <navigator url="/pages/groupbuy/groupbuy" class="quick-link-item bg-red-light">
+      <view class="quick-link-content">
+        <image class="quick-link-icon" src="/static/icons/shopping-bag.svg" mode="widthFix"></image>
+        <text class="quick-link-text">团购</text>
+      </view>
+    </navigator>
+    <navigator url="/pages/community/community" class="quick-link-item bg-green-light">
+      <view class="quick-link-content">
+        <image class="quick-link-icon" src="/static/icons/message-square.svg" mode="widthFix"></image>
+        <text class="quick-link-text">社区</text>
+      </view>
+    </navigator>
+    <navigator url="/pages/services/services" class="quick-link-item bg-blue-light">
+      <view class="quick-link-content">
+        <image class="quick-link-icon" src="/static/icons/home.svg" mode="widthFix"></image>
+        <text class="quick-link-text">服务</text>
+      </view>
+    </navigator>
+  </view>
+
+  <!-- Announcements -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">小区公告</text>
+      <navigator url="/pages/community/community" class="section-more">查看更多</navigator>
+    </view>
+    <view class="card">
+      <view class="card-content">
+        <block wx:for="{{announcements}}" wx:key="id">
+          <view class="announcement-item">
+            <view class="announcement-title">{{item.title}}</view>
+            <view class="announcement-date">{{item.date}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- Today's Meals -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">今日推荐</text>
+      <navigator url="/pages/food/food" class="section-more">查看全部</navigator>
+    </view>
+    <view class="card">
+      <view class="card-content">
+        <block wx:for="{{todayMeals}}" wx:key="id">
+          <view class="meal-item">
+            <view>
+              <view class="meal-title">{{item.title}}</view>
+              <view class="meal-chef">由 {{item.chef}} 制作</view>
+            </view>
+            <view class="meal-price">¥{{item.price}}</view>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 热门团购 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">热门团购</text>
+      <navigator url="/pages/groupbuy/groupbuy" class="section-more">查看全部</navigator>
+    </view>
+    <view class="card">
+      <scroll-view scroll-x="true" class="groupbuy-scroll">
+        <view class="groupbuy-scroll-content">
+          <view class="groupbuy-item">
+            <image class="groupbuy-image" src="/static/images/fruits.png" mode="aspectFill"></image>
+            <view class="groupbuy-title">新鲜水果团购</view>
+            <view class="groupbuy-price">¥58</view>
+            <view class="groupbuy-tag">已有15人参与</view>
+          </view>
+          <view class="groupbuy-item">
+            <image class="groupbuy-image" src="/static/images/vegetables.png" mode="aspectFill"></image>
+            <view class="groupbuy-title">有机蔬菜套餐</view>
+            <view class="groupbuy-price">¥45</view>
+            <view class="groupbuy-tag">已有8人参与</view>
+          </view>
+          <view class="groupbuy-item">
+            <image class="groupbuy-image" src="/static/images/snacks.png" mode="aspectFill"></image>
+            <view class="groupbuy-title">进口零食大礼包</view>
+            <view class="groupbuy-price">¥99</view>
+            <view class="groupbuy-tag">已有25人参与</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 天气信息 -->
+  <view class="weather-section">
+    <view class="weather-card">
+      <view class="weather-info">
+        <view class="weather-temp">{{weather.temperature}}</view>
+        <view class="weather-condition">{{weather.condition}}</view>
+      </view>
+      <view class="weather-air">
+        <text>空气质量：{{weather.airQuality}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 缴费提醒 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">缴费提醒</text>
+      <navigator url="/pages/profile/payments/payments" class="section-more">全部缴费</navigator>
+    </view>
+    <view class="card">
+      <view class="card-content">
+        <block wx:for="{{paymentReminders}}" wx:key="id">
+          <view class="payment-item">
+            <view>
+              <view class="payment-title">{{item.title}}</view>
+              <view class="payment-due">截止日期: {{item.dueDate}}</view>
+            </view>
+            <view class="payment-info">
+              <view class="payment-amount">¥{{item.amount}}</view>
+              <view class="payment-status status-unpaid">{{item.status}}</view>
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class="card-footer">
+        <button class="btn-primary" bindtap="payFees">一键缴费</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 访客登记 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">访客登记</text>
+      <navigator url="/pages/visitors/visitors" class="section-more">管理访客</navigator>
+    </view>
+    <view class="card">
+      <view class="card-content">
+        <block wx:for="{{visitors}}" wx:key="id">
+          <view class="visitor-item">
+            <view>
+              <view class="visitor-name">{{item.name}}</view>
+              <view class="visitor-purpose">来访目的: {{item.purpose}}</view>
+              <view class="visitor-time">时间: {{item.time}}</view>
+            </view>
+            <view class="visitor-status {{item.status === '已通过' ? 'status-approved' : 'status-pending'}}">
+              {{item.status}}
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class="card-footer">
+        <button class="btn-primary" bindtap="addVisitor">新增访客</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 周边商家 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">周边商家</text>
+      <navigator url="/pages/shops/shops" class="section-more">查看更多</navigator>
+    </view>
+    <view class="shops-scroll">
+      <scroll-view scroll-x="true" class="shops-scroll-view">
+        <block wx:for="{{nearbyShops}}" wx:key="id">
+          <view class="shop-item" bindtap="viewShopDetail" data-id="{{item.id}}">
+            <view class="shop-name">{{item.name}}</view>
+            <view class="shop-distance">{{item.distance}}</view>
+            <view class="shop-discount">{{item.discount}}</view>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+</view>

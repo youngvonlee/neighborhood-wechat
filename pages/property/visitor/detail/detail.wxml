@@ -1,0 +1,132 @@
+<!-- pages/property/visitor/detail/detail.wxml -->
+<view class="container" wx:if="{{visitor}}">
+  <!-- 访客信息卡片 -->
+  <view class="visitor-card">
+    <view class="visitor-header">
+      <view class="visitor-avatar">
+        <image wx:if="{{visitor.visitorPhoto}}" src="{{visitor.visitorPhoto}}" mode="aspectFill"></image>
+        <view wx:else class="avatar-placeholder">{{visitor.name[0]}}</view>
+      </view>
+      <view class="visitor-basic-info">
+        <view class="visitor-name">{{visitor.name}}</view>
+        <view class="visitor-phone" bindtap="callVisitor">{{visitor.phone}}</view>
+        <view class="visitor-status {{visitor.status}}">
+          <text>{{visitor.statusText}}</text>
+        </view>
+      </view>
+      <view class="qrcode-preview" bindtap="showQRCode">
+        <image class="qrcode-thumbnail" src="{{visitor.qrCode}}" mode="aspectFit"></image>
+        <text>查看二维码</text>
+      </view>
+    </view>
+
+    <!-- 访问信息 -->
+    <view class="info-section">
+      <view class="section-title">访问信息</view>
+      <view class="info-item">
+        <text class="info-label">访问事由</text>
+        <text class="info-value">{{visitor.reason}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">访问地点</text>
+        <text class="info-value">{{visitor.houseNumber}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">访客关系</text>
+        <text class="info-value">{{visitor.relationship}}</text>
+      </view>
+      <view class="info-item" wx:if="{{visitor.carNumber}}">
+        <text class="info-label">车牌号码</text>
+        <text class="info-value">{{visitor.carNumber}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">到访时间</text>
+        <text class="info-value">{{visitor.visitTime}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">预计离开</text>
+        <text class="info-value">{{visitor.leaveTime}}</text>
+      </view>
+      <view class="info-item" wx:if="{{visitor.remark}}">
+        <text class="info-label">备注信息</text>
+        <text class="info-value">{{visitor.remark}}</text>
+      </view>
+    </view>
+
+    <!-- 审核信息 -->
+    <view class="info-section" wx:if="{{visitor.approvedBy}}">
+      <view class="section-title">审核信息</view>
+      <view class="info-item">
+        <text class="info-label">审核人员</text>
+        <text class="info-value">{{visitor.approvedBy}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">审核时间</text>
+        <text class="info-value">{{visitor.approvedTime}}</text>
+      </view>
+    </view>
+
+    <!-- 安保记录 -->
+    <view class="info-section" wx:if="{{visitor.status === 'completed'}}">
+      <view class="section-title">安保记录</view>
+      <view class="info-item">
+        <text class="info-label">进入时间</text>
+        <text class="info-value">{{visitor.securityCheckIn}}</text>
+      </view>
+      <view class="info-item">
+        <text class="info-label">离开时间</text>
+        <text class="info-value">{{visitor.securityCheckOut}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <block wx:if="{{visitor.status === 'upcoming'}}">
+      <button class="action-btn primary" bindtap="showQRCode">
+        <image class="btn-icon" src="/static/icons/qrcode.svg" mode="widthFix"></image>
+        查看通行证
+      </button>
+      <button class="action-btn" bindtap="editVisitor">
+        <image class="btn-icon" src="/static/icons/edit.svg" mode="widthFix"></image>
+        编辑信息
+      </button>
+      <button class="action-btn warning" bindtap="cancelVisitor">
+        <image class="btn-icon" src="/static/icons/x.svg" mode="widthFix"></image>
+        取消预约
+      </button>
+    </block>
+    <block wx:if="{{visitor.status === 'active'}}">
+      <button class="action-btn primary" bindtap="showQRCode">
+        <image class="btn-icon" src="/static/icons/qrcode.svg" mode="widthFix"></image>
+        查看通行证
+      </button>
+      <button class="action-btn" bindtap="extendVisitTime">
+        <image class="btn-icon" src="/static/icons/clock.svg" mode="widthFix"></image>
+        延长时间
+      </button>
+    </block>
+    <button class="action-btn" open-type="share">
+      <image class="btn-icon" src="/static/icons/share.svg" mode="widthFix"></image>
+      分享
+    </button>
+  </view>
+
+  <!-- 二维码弹窗 -->
+  <view class="qrcode-modal {{qrCodeVisible ? 'show' : ''}}">
+    <view class="qrcode-container">
+      <view class="qrcode-title">访客通行证</view>
+      <view class="qrcode-visitor-info">
+        <text>访客：{{visitor.name}}</text>
+        <text>到访时间：{{visitor.visitTime}}</text>
+      </view>
+      <image class="qrcode-image" src="{{visitor.qrCode}}" mode="aspectFit"></image>
+      <view class="qrcode-tip">请向门岗出示此二维码</view>
+      <view class="qrcode-actions">
+        <button class="qrcode-btn" bindtap="saveQRCode">保存到相册</button>
+        <button class="qrcode-btn close" bindtap="hideQRCode">关闭</button>
+      </view>
+    </view>
+    <view class="modal-mask" bindtap="hideQRCode"></view>
+  </view>
+</view>

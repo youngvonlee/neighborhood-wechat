@@ -1,0 +1,122 @@
+<!-- pages/property/visitor/visitor.wxml -->
+<view class="container">
+  <!-- 顶部标题栏 -->
+  <view class="header">
+    <view class="title">访客管理</view>
+    <view class="add-btn" bindtap="addNewVisitor">
+      <image class="add-icon" src="/static/icons/plus.svg" mode="widthFix"></image>
+      <text>新增访客</text>
+    </view>
+  </view>
+
+  <!-- 访客类型选项卡 -->
+  <view class="tabs">
+    <view class="tab {{currentTab === 'upcoming' ? 'active' : ''}}" bindtap="switchTab" data-tab="upcoming">即将到访</view>
+    <view class="tab {{currentTab === 'history' ? 'active' : ''}}" bindtap="switchTab" data-tab="history">历史记录</view>
+  </view>
+
+  <!-- 即将到访列表 -->
+  <view class="visitor-list" wx:if="{{currentTab === 'upcoming'}}">
+    <block wx:for="{{upcomingVisitors}}" wx:key="id">
+      <view class="visitor-item">
+        <view class="visitor-info">
+          <view class="visitor-name">{{item.name}}</view>
+          <view class="visitor-time">到访时间：{{item.visitTime}}</view>
+          <view class="visitor-detail">
+            <text>访客电话：{{item.phone}}</text>
+            <text>访问事由：{{item.reason}}</text>
+            <text>访问地点：{{item.location}}</text>
+          </view>
+        </view>
+        <view class="visitor-actions">
+          <view class="action-btn edit" bindtap="editVisitor" data-id="{{item.id}}">
+            <image class="action-icon" src="/static/icons/edit.svg" mode="widthFix"></image>
+            <text>编辑</text>
+          </view>
+          <view class="action-btn cancel" bindtap="cancelVisitor" data-id="{{item.id}}">
+            <image class="action-icon" src="/static/icons/cancel.svg" mode="widthFix"></image>
+            <text>取消</text>
+          </view>
+          <view class="action-btn share" bindtap="shareVisitorCode" data-id="{{item.id}}">
+            <image class="action-icon" src="/static/icons/qrcode.svg" mode="widthFix"></image>
+            <text>分享</text>
+          </view>
+        </view>
+        <view class="visitor-status {{item.status}}">
+          {{item.status === 'pending' ? '待审核' : item.status === 'approved' ? '已通过' : '已拒绝'}}
+        </view>
+      </view>
+    </block>
+
+    <!-- 无访客提示 -->
+    <view class="empty-container" wx:if="{{upcomingVisitors.length === 0}}">
+      <image class="empty-icon" src="/static/icons/empty-visitor.svg" mode="widthFix"></image>
+      <view class="empty-text">暂无即将到访的访客</view>
+      <button class="add-visitor-btn" bindtap="addNewVisitor">新增访客</button>
+    </view>
+  </view>
+
+  <!-- 历史记录列表 -->
+  <view class="visitor-list" wx:if="{{currentTab === 'history'}}">
+    <block wx:for="{{historyVisitors}}" wx:key="id">
+      <view class="visitor-item history">
+        <view class="visitor-info">
+          <view class="visitor-name">{{item.name}}</view>
+          <view class="visitor-time">到访时间：{{item.visitTime}}</view>
+          <view class="visitor-detail">
+            <text>访客电话：{{item.phone}}</text>
+            <text>访问事由：{{item.reason}}</text>
+            <text>访问地点：{{item.location}}</text>
+          </view>
+        </view>
+        <view class="visitor-result">
+          <text class="{{item.status === 'completed' ? 'completed' : 'cancelled'}}">{{item.status === 'completed' ? '已完成' : '已取消'}}</text>
+          <text class="visit-duration" wx:if="{{item.status === 'completed'}}">停留时间：{{item.duration}}</text>
+        </view>
+      </view>
+    </block>
+
+    <!-- 无历史记录提示 -->
+    <view class="empty-container" wx:if="{{historyVisitors.length === 0}}">
+      <image class="empty-icon" src="/static/icons/empty-history.svg" mode="widthFix"></image>
+      <view class="empty-text">暂无访客历史记录</view>
+    </view>
+  </view>
+
+  <!-- 新增访客弹窗 -->
+  <view class="visitor-modal {{showVisitorForm ? 'show' : ''}}">
+    <view class="visitor-form">
+      <view class="form-title">{{editingVisitor ? '编辑访客' : '新增访客'}}</view>
+      <view class="form-item">
+        <view class="form-label">访客姓名</view>
+        <input class="form-input" placeholder="请输入访客姓名" value="{{visitorForm.name}}" bindinput="inputVisitorName"></input>
+      </view>
+      <view class="form-item">
+        <view class="form-label">联系电话</view>
+        <input class="form-input" type="number" placeholder="请输入联系电话" value="{{visitorForm.phone}}" bindinput="inputVisitorPhone"></input>
+      </view>
+      <view class="form-item">
+        <view class="form-label">到访时间</view>
+        <picker mode="date" value="{{visitorForm.date}}" start="2023-01-01" end="2030-12-31" bindchange="dateChange">
+          <view class="picker-view">{{visitorForm.date || '请选择日期'}}</view>
+        </picker>
+        <picker mode="time" value="{{visitorForm.time}}" start="00:00" end="23:59" bindchange="timeChange">
+          <view class="picker-view">{{visitorForm.time || '请选择时间'}}</view>
+        </picker>
+      </view>
+      <view class="form-item">
+        <view class="form-label">访问事由</view>
+        <input class="form-input" placeholder="请输入访问事由" value="{{visitorForm.reason}}" bindinput="inputVisitorReason"></input>
+      </view>
+      <view class="form-item">
+        <view class="form-label">访问地点</view>
+        <input class="form-input" placeholder="请输入访问地点" value="{{visitorForm.location}}" bindinput="inputVisitorLocation"></input>
+      </view>
+      <view class="form-buttons">
+        <button class="cancel-btn" bindtap="cancelVisitorForm">取消</button>
+        <button class="confirm-btn" bindtap="submitVisitorForm">确定</button>
+      </view>
+    </view>
+    <view class="modal-mask" bindtap="cancelVisitorForm"></view>
+  </view>
+</view>

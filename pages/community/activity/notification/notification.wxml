@@ -1,0 +1,120 @@
+<!-- pages/community/activity/notification/notification.wxml -->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="header">
+    <view class="title">消息中心</view>
+    <view class="actions">
+      <view class="action-btn" bindtap="markAllAsRead">全部已读</view>
+      <view class="action-btn" bindtap="setNotificationSettings">通知设置</view>
+    </view>
+  </view>
+  
+  <!-- 标签页导航 -->
+  <view class="tabs">
+    <view 
+      wx:for="{{tabs}}" 
+      wx:key="index" 
+      class="tab {{currentTab === index ? 'active' : ''}}"
+      bindtap="switchTab"
+      data-index="{{index}}"
+    >
+      {{item}}
+      <view class="tab-line" wx:if="{{currentTab === index}}"></view>
+    </view>
+  </view>
+  
+  <!-- 通知列表 -->
+  <view class="notification-list">
+    <view wx:if="{{loading}}" class="loading-container">
+      <view class="loading"></view>
+    </view>
+    
+    <view wx:elif="{{notifications.length === 0}}" class="empty-container">
+      <image class="empty-icon" src="/static/images/empty.png" mode="aspectFit"></image>
+      <view class="empty-text">暂无通知</view>
+    </view>
+    
+    <view wx:else>
+      <view 
+        wx:for="{{notifications}}" 
+        wx:key="id" 
+        class="notification-item {{!item.isRead ? 'unread' : ''}} {{item.needAction ? 'need-action' : ''}}"
+        bindtap="viewNotificationDetail"
+        data-id="{{item.id}}"
+      >
+        <view class="notification-badge" wx:if="{{!item.isRead}}"></view>
+        <view class="action-badge" wx:if="{{item.needAction}}">待处理</view>
+        
+        <view class="notification-type {{item.type}}">
+          {{notificationTypes[item.type]}}
+        </view>
+        
+        <view class="notification-content">
+          <view class="notification-title">{{item.title}}</view>
+          <view class="notification-text">{{item.content}}</view>
+          <view class="notification-time">{{item.createTime}}</view>
+        </view>
+        
+        <view class="notification-actions" catchtap="stopPropagation">
+          <view 
+            class="notification-action delete" 
+            catchtap="deleteNotification" 
+            data-id="{{item.id}}"
+          >删除</view>
+        </view>
+      </view>
+      
+      <view class="list-footer" wx:if="{{notifications.length > 0}}">
+        <view class="clear-all" bindtap="clearAllNotifications">清空所有通知</view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 社区日历卡片 -->
+  <view class="calendar-card" wx:if="{{communityCalendar.length > 0}}">
+    <view class="card-header">
+      <view class="card-title">社区日历</view>
+      <view class="card-action">查看更多</view>
+    </view>
+    <view class="calendar-events">
+      <view 
+        wx:for="{{communityCalendar}}" 
+        wx:key="id" 
+        class="calendar-event"
+      >
+        <view class="event-indicator" style="background-color: {{item.color}}"></view>
+        <view class="event-content">
+          <view class="event-title">{{item.title}}</view>
+          <view class="event-time">{{item.startTime}}</view>
+          <view class="event-location">{{item.location}}</view>
+        </view>
+        <view class="event-actions">
+          <view 
+            class="event-action remind" 
+            catchtap="setCalendarReminder" 
+            data-event-id="{{item.id}}"
+            data-remind="true"
+          >提醒</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 活动评价卡片 -->
+  <view class="rating-card" wx:if="{{activityRatings['5'] && activityRatings['5'].myRating === 0}}">
+    <view class="card-header">
+      <view class="card-title">活动评价</view>
+    </view>
+    <view class="rating-content">
+      <view class="rating-title">中秋联欢晚会</view>
+      <view class="rating-subtitle">您参加的活动已结束，请对活动进行评价</view>
+      <view class="rating-stars">
+        <view class="star" wx:for="{{5}}" wx:key="index">
+          <image src="/static/images/star-empty.png" mode="aspectFit"></image>
+        </view>
+      </view>
+      <textarea class="rating-comment" placeholder="请输入您的评价（选填）"></textarea>
+      <button class="rating-submit" bindtap="submitActivityRating" data-activity-id="5">提交评价</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,540 @@
+/* pages/property/service/service.wxss */
+
+/* 页面容器 */
+.container {
+  padding: 30rpx;
+  background-color: #f5f7fa;
+  min-height: 100vh;
+}
+
+/* 页面标题 */
+.page-header {
+  margin-bottom: 30rpx;
+}
+
+.page-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.page-subtitle {
+  font-size: 28rpx;
+  color: #666;
+  margin-top: 10rpx;
+}
+
+/* 社区公告区域 */
+.announcement-section {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.announcement-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.announcement-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx;
+  background-color: #f9f9f9;
+  border-radius: 8rpx;
+  border-left: 6rpx solid #1890ff;
+}
+
+.announcement-content {
+  flex: 1;
+}
+
+.announcement-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.announcement-title.important {
+  color: #ff4d4f;
+}
+
+.announcement-brief {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.announcement-date {
+  font-size: 22rpx;
+  color: #999;
+}
+
+.announcement-arrow {
+  width: 30rpx;
+  height: 30rpx;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjOTk5IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci1jaGV2cm9uLXJpZ2h0Ij48cG9seWxpbmUgcG9pbnRzPSI5IDE4IDE1IDEyIDkgNiI+PC9wb2x5bGluZT48L3N2Zz4=');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin-left: 20rpx;
+}
+
+/* 服务卡片区域 */
+.service-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.service-card {
+  display: flex;
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.card-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-right: 20rpx;
+  background-size: 50rpx;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.payment-icon {
+  background-color: #e6f7ff;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMWU4OGU1IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci1jcmVkaXQtY2FyZCI+PHJlY3QgeD0iMSIgeT0iNCIgd2lkdGg9IjIyIiBoZWlnaHQ9IjE2IiByeD0iMiIgcnk9IjIiPjwvcmVjdD48bGluZSB4MT0iMSIgeTE9IjEwIiB4Mj0iMjMiIHkyPSIxMCI+PC9saW5lPjwvc3ZnPg==');
+}
+
+.visitor-icon {
+  background-color: #fff7e6;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmE4YzE2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci11c2VycyI+PHBhdGggZD0iTTE3IDIxdi0yYTQgNCAwIDAgMC00LTRIOWE0IDQgMCAwIDAtNCA0djIiPjwvcGF0aD48Y2lyY2xlIGN4PSIxMyIgY3k9IjciIHI9IjQiPjwvY2lyY2xlPjxwYXRoIGQ9Ik0yMyAyMXYtMmE0IDQgMCAwIDAtMy0zLjg3Ij48L3BhdGg+PHBhdGggZD0iTTE2IDMuMTNhNCA0IDAgMCAxIDAgNy43NSI+PC9wYXRoPjwvc3ZnPg==');
+}
+
+.notice-icon {
+  background-color: #f6ffed;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNTJjNDFhIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci1iZWxsIj48cGF0aCBkPSJNMTggOEExNiA2IDAgMCAwIDYgOEE2IDYgMCAwIDAgNiAyMkgxOEE2IDYgMCAwIDAgMTggOHoiPjwvcGF0aD48cGF0aCBkPSJNMTMuNzMgMjFhMiAyIDAgMCAxLTMuNDYgMCI+PC9wYXRoPjwvc3ZnPg==');
+}
+
+.records-icon {
+  background-color: #f9f0ff;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNzIyZWQxIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci1maWxlLXRleHQiPjxwYXRoIGQ9Ik0xNCAySDZhMiAyIDAgMCAwLTIgMnYxNmEyIDIgMCAwIDAgMiAyaDEyYTIgMiAwIDAgMCAyLTJWOHoiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIxNCAyIDE0IDggMjAgOCI+PC9wb2x5bGluZT48bGluZSB4MT0iMTYiIHkxPSIxMyIgeDI9IjgiIHkyPSIxMyI+PC9saW5lPjxsaW5lIHgxPSIxNiIgeTE9IjE3IiB4Mj0iOCIgeTI9IjE3Ij48L2xpbmU+PHBvbHlsaW5lIHBvaW50cz0iMTAgOSA5IDkgOCA5Ij48L3BvbHlsaW5lPjwvc3ZnPg==');
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.card-desc {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.card-status {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.status-badge {
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.status-badge.important {
+  background-color: #fff2f0;
+  color: #ff4d4f;
+}
+
+/* 优惠活动区域 */
+.promotion-section {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.section-more {
+  font-size: 26rpx;
+  color: #1890ff;
+}
+
+.promotion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.promotion-item {
+  display: flex;
+  background-color: #f9f9f9;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.promotion-image {
+  width: 200rpx;
+  height: 140rpx;
+}
+
+.promotion-content {
+  flex: 1;
+  padding: 20rpx;
+  position: relative;
+}
+
+.promotion-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.promotion-period {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.promotion-tag {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  background-color: #ff4d4f;
+  color: #fff;
+}
+
+/* 快捷服务区域 */
+.quick-service-section {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.quick-service-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+
+.quick-service-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quick-service-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-bottom: 10rpx;
+  background-size: 40rpx;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.repair-icon {
+  background-color: #e6f7ff;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMWU4OGU1IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci10b29sIj48cGF0aCBkPSJNMTQuNyA2LjNhMSAxIDAgMCAwIDAgMS40bDEuNiAxLjZhMSAxIDAgMCAwIDEuNCAwbDMuNzctMy43N2E2IDYgMCAwIDEtNy45NCA3Ljk0bC02LjkxIDYuOTFhMi4xMiAyLjEyIDAgMCAxLTMtM2w2LjkxLTYuOTFhNiA2IDAgMCAxIDcuOTQtNy45NGwtMy43NiAzLjc2eiI+PC9wYXRoPjwvc3ZnPg==');
+}
+
+.contact-icon {
+  background-color: #fff7e6;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmE4YzE2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci1waG9uZSI+PHBhdGggZD0iTTIyIDE2LjkydjNhMiAyIDAgMCAxLTIuMTggMiAxOS43OSAxOS43OSAwIDAgMS04LjYzLTMuMDcgMTkuNSAxOS41IDAgMCAxLTYtNiAxOS43OSAxOS43OSAwIDAgMS0zLjA3LTguNjdBMiAyIDAgMCAxIDQuMTEgMmgzYTIgMiAwIDAgMSAyIDEuNzIgMTIuODQgMTIuODQgMCAwIDAgLjcgMi44MSAyIDIgMCAwIDEtLjQ1IDIuMTFMOC4wOSA5LjkxYTE2IDE2IDAgMCAwIDYgNmwxLjI3LTEuMjdhMiAyIDAgMCAxIDIuMTEtLjQ1IDEyLjg0IDEyLjg0IDAgMCAwIDIuODEuN0EyIDIgMCAwIDEgMjIgMTYuOTJ6Ij48L3BhdGg+PC9zdmc+');
+}
+
+.package-icon {
+  background-color: #f6ffed;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNTJjNDFhIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci1wYWNrYWdlIj48bGluZSB4MT0iMTYuNSIgeTE9IjkuNSIgeDI9IjcuNSIgeTI9IjQuNSI+PC9saW5lPjxwb2x5Z29uIHBvaW50cz0iMTYuNSA5LjUgOCAxMyAxNi41IDE2LjUgMjEgMTMgMTYuNSA5LjUiPjwvcG9seWdvbj48cGF0aCBkPSJNMyA3djEwYTIgMiAwIDAgMCAxIDEuNzNsNyA0YTIgMiAwIDAgMCAyIDBsNy00QTIgMiAwIDAgMCAyMSAxN1Y3YTIgMiAwIDAgMC0xLTEuNzNsLTctNGEyIDIgMCAwIDAtMiAwbC03IDRBMiAyIDAgMCAwIDMgN3oiPjwvcGF0aD48cG9seWxpbmUgcG9pbnRzPSIzLjI3IDYuOTYgMTIgMTIuMDEgMjAuNzMgNi45NiI+PC9wb2x5bGluZT48bGluZSB4MT0iMTIiIHkxPSIyMi4wOCIgeDI9IjEyIiB5Mj0iMTIiPjwvbGluZT48L3N2Zz4=');
+}
+
+.parking-icon {
+  background-color: #f9f0ff;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNzIyZWQxIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgY2xhc3M9ImZlYXRoZXIgZmVhdGhlci1jYXIiPjxyZWN0IHg9IjMiIHk9IjkiIHdpZHRoPSIxOCIgaGVpZ2h0PSIxMCIgcng9IjIiPjwvcmVjdD48Y2lyY2xlIGN4PSI3IiBjeT0iMTQiIHI9IjEiPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjE3IiBjeT0iMTQiIHI9IjEiPjwvY2lyY2xlPjxwYXRoIGQ9Ik01IDlsMS41LTQuNUE0IDQgMCAwIDEgMTAuNSAxSDEzLjVhNCA0IDAgMCAxIDQgMy41TDE5IDkiPjwvcGF0aD48L3N2Zz4=');
+}
+
+.quick-service-name {
+  font-size: 24rpx;
+  color: #333;
+  text-align: center;
+}
+
+/* 优惠券区域 */
+.coupon-section {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.coupon-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.coupon-item {
+  display: flex;
+  height: 180rpx;
+  background: linear-gradient(to right, #ff4d4f 0%, #ff7875 100%);
+  border-radius: 8rpx;
+  overflow: hidden;
+  position: relative;
+}
+
+.coupon-item::before {
+  content: '';
+  position: absolute;
+  left: 200rpx;
+  top: 0;
+  bottom: 0;
+  width: 20rpx;
+  background-image: radial-gradient(circle at 0 10rpx, transparent 0, transparent 10rpx, #ff4d4f 10rpx);
+  background-size: 20rpx 20rpx;
+  background-position: 10rpx 10rpx;
+  background-repeat: repeat-y;
+}
+
+.coupon-left {
+  width: 200rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 20rpx;
+}
+
+.coupon-amount {
+  font-size: 28rpx;
+  color: #ff4d4f;
+  font-weight: bold;
+}
+
+.amount-value {
+  font-size: 48rpx;
+}
+
+.coupon-condition {
+  font-size: 22rpx;
+  color: #666;
+  margin-top: 10rpx;
+}
+
+.coupon-right {
+  flex: 1;
+  padding: 20rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+}
+
+.coupon-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 10rpx;
+}
+
+.coupon-validity {
+  font-size: 24rpx;
+  margin-bottom: 20rpx;
+}
+
+.coupon-use-btn {
+  align-self: flex-start;
+  font-size: 24rpx;
+  padding: 6rpx 20rpx;
+  background-color: #fff;
+  color: #ff4d4f;
+  border-radius: 30rpx;
+}
+
+.empty-coupon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 0;
+}
+
+.empty-text {
+  font-size: 28rpx;
+  color: #999;
+  margin-bottom: 20rpx;
+}
+
+.get-coupon-btn {
+  font-size: 28rpx;
+  padding: 10rpx 30rpx;
+  background-color: #ff4d4f;
+  color: #fff;
+  border-radius: 30rpx;
+}
+
+/* 社区活动区域 */
+.community-activity-section {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.activity-item {
+  display: flex;
+  background-color: #f9f9f9;
+  border-radius: 8rpx;
+  padding: 20rpx;
+  position: relative;
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.activity-info {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 6rpx;
+}
+
+.activity-status {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  font-size: 22rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  background-color: #52c41a;
+  color: #fff;
+}
+
+.activity-join-btn {
+  margin-top: 10rpx;
+  align-self: flex-start;
+  font-size: 24rpx;
+  padding: 6rpx 20rpx;
+  background-color: #1890ff;
+  color: #fff;
+  border-radius: 30rpx;
+  display: inline-block;
+}
+
+/* 便民服务区域 */
+.convenient-service-section {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20rpx;
+  margin-top: 20rpx;
+}
+
+.service-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.service-grid-icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  margin-bottom: 10rpx;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40rpx;
+  color: #1890ff;
+}
+
+.housekeeping-icon {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.express-icon {
+  background-color: #fff7e6;
+  color: #fa8c16;
+}
+
+.groupbuy-icon {
+  background-color: #f6ffed;
+  color: #52c41a;
+}
+
+.maintenance-icon {
+  background-color: #f9f0ff;
+  color: #722ed1;
+}
+
+.service-grid-name {
+  font-size: 24rpx;
+  color: #333;
+  text-align: center;
+}

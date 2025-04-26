@@ -1,0 +1,213 @@
+<!-- pages/community/activity/publish/publish.wxml -->
+<view class="container">
+  <view class="form-header">
+    <view class="form-title">发布社区活动</view>
+    <view class="form-subtitle">填写活动信息，与邻居共享美好时光</view>
+  </view>
+  
+  <view class="form-body">
+    <!-- 活动标题 -->
+    <view class="form-item">
+      <view class="form-label">活动标题<text class="required">*</text></view>
+      <input 
+        class="form-input" 
+        placeholder="请输入活动标题（不超过20字）" 
+        maxlength="20"
+        value="{{formData.title}}"
+        bindinput="onInputChange"
+        data-field="title"
+      />
+    </view>
+    
+    <!-- 活动图片 -->
+    <view class="form-item">
+      <view class="form-label">活动图片<text class="required">*</text></view>
+      <view class="image-uploader">
+        <view 
+          class="upload-item" 
+          wx:for="{{uploadedImages}}" 
+          wx:key="id"
+        >
+          <image 
+            class="upload-image" 
+            src="{{item.url}}" 
+            mode="aspectFill"
+            bindtap="previewImage"
+            data-url="{{item.url}}"
+          ></image>
+          <view 
+            class="delete-icon" 
+            bindtap="deleteImage"
+            data-id="{{item.id}}"
+          >×</view>
+        </view>
+        
+        <view class="upload-button" bindtap="uploadImage" wx:if="{{uploadedImages.length < 3}}">
+          <view class="upload-icon">+</view>
+          <view class="upload-text">上传图片</view>
+        </view>
+      </view>
+      <view class="form-tips">最多上传3张图片，建议尺寸750×422像素</view>
+    </view>
+    
+    <!-- 活动时间 -->
+    <view class="form-item">
+      <view class="form-label">活动时间<text class="required">*</text></view>
+      <view class="time-selector">
+        <picker 
+          mode="date" 
+          value="{{formData.time}}" 
+          start="{{currentDate}}" 
+          bindchange="onInputChange"
+          data-field="time"
+        >
+          <view class="picker-item {{formData.time ? '' : 'placeholder'}}">
+            {{formData.time || '选择日期'}}
+          </view>
+        </picker>
+        
+        <picker 
+          mode="time" 
+          value="{{formData.startTime}}" 
+          bindchange="onInputChange"
+          data-field="startTime"
+        >
+          <view class="picker-item {{formData.startTime ? '' : 'placeholder'}}">
+            {{formData.startTime || '开始时间'}}
+          </view>
+        </picker>
+        
+        <view class="time-separator">至</view>
+        
+        <picker 
+          mode="time" 
+          value="{{formData.endTime}}" 
+          bindchange="onInputChange"
+          data-field="endTime"
+        >
+          <view class="picker-item {{formData.endTime ? '' : 'placeholder'}}">
+            {{formData.endTime || '结束时间'}}
+          </view>
+        </picker>
+      </view>
+    </view>
+    
+    <!-- 活动地点 -->
+    <view class="form-item">
+      <view class="form-label">活动地点<text class="required">*</text></view>
+      <view class="location-input">
+        <input 
+          class="form-input" 
+          placeholder="请输入活动地点" 
+          value="{{formData.location}}"
+          bindinput="onInputChange"
+          data-field="location"
+        />
+        <view class="location-picker" bindtap="chooseLocation">选择位置</view>
+      </view>
+    </view>
+    
+    <!-- 活动分类 -->
+    <view class="form-item">
+      <view class="form-label">活动分类<text class="required">*</text></view>
+      <picker 
+        bindchange="onCategoryChange" 
+        value="{{formData.category}}" 
+        range="{{categories}}" 
+        range-key="name"
+      >
+        <view class="picker-view">
+          <view class="picker-value">
+            {{categories.find(item => item.id === formData.category).name}}
+          </view>
+          <view class="picker-arrow">▼</view>
+        </view>
+      </picker>
+    </view>
+    
+    <!-- 活动标签 -->
+    <view class="form-item">
+      <view class="form-label">活动标签</view>
+      <view class="tags-container" bindtap="showTagSelector">
+        <view wx:if="{{formData.tags.length === 0}}" class="tags-placeholder">
+          选择标签（最多3个）
+        </view>
+        <view wx:else class="selected-tags">
+          <view 
+            wx:for="{{formData.tags}}" 
+            wx:key="*this" 
+            class="selected-tag"
+          >{{item}}</view>
+        </view>
+        <view class="tags-arrow">▼</view>
+      </view>
+    </view>
+    
+    <!-- 参与人数上限 -->
+    <view class="form-item">
+      <view class="form-label">参与人数上限<text class="required">*</text></view>
+      <input 
+        class="form-input" 
+        type="number" 
+        placeholder="请输入参与人数上限" 
+        value="{{formData.maxParticipants}}"
+        bindinput="onInputChange"
+        data-field="maxParticipants"
+      />
+    </view>
+    
+    <!-- 活动费用 -->
+    <view class="form-item">
+      <view class="form-label">活动费用</view>
+      <input 
+        class="form-input" 
+        type="digit" 
+        placeholder="请输入活动费用（元），免费活动填0" 
+        value="{{formData.fee}}"
+        bindinput="onInputChange"
+        data-field="fee"
+      />
+    </view>
+    
+    <!-- 活动描述 -->
+    <view class="form-item">
+      <view class="form-label">活动描述<text class="required">*</text></view>
+      <textarea 
+        class="form-textarea" 
+        placeholder="请详细描述活动内容、流程、注意事项等信息" 
+        maxlength="500"
+        value="{{formData.description}}"
+        bindinput="onInputChange"
+        data-field="description"
+      ></textarea>
+      <view class="textarea-counter">{{formData.description.length}}/500</view>
+    </view>
+  </view>
+  
+  <view class="form-footer">
+    <button class="submit-button" bindtap="submitForm" disabled="{{isSubmitting}}">发布活动</button>
+  </view>
+  
+  <!-- 标签选择器弹窗 -->
+  <view class="tag-selector-mask" wx:if="{{showTagSelector}}" bindtap="closeTagSelector"></view>
+  <view class="tag-selector" wx:if="{{showTagSelector}}">
+    <view class="tag-selector-header">
+      <view class="tag-selector-title">选择标签（最多3个）</view>
+      <view class="tag-selector-close" bindtap="closeTagSelector">×</view>
+    </view>
+    
+    <view class="tag-selector-body">
+      <view 
+        wx:for="{{allTags}}" 
+        wx:key="*this" 
+        class="tag-item {{formData.tags.includes(item) ? 'selected' : ''}}"
+        bindtap="toggleTag"
+        data-tag="{{item}}"
+      >{{item}}</view>
+    </view>
+    
+    <view class="tag-selector-footer">
+      <button class="tag-confirm-button" bindtap="confirmTags">确定</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,123 @@
+<!--pages/property/package/detail/detail.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">包裹详情</view>
+    <view class="page-subtitle">查看包裹详细信息和物流状态</view>
+  </view>
+
+  <!-- 包裹信息卡片 -->
+  <view class="package-card">
+    <view class="card-header">
+      <view class="courier-name">{{packageInfo.courier}}</view>
+      <view class="package-status {{packageInfo.status === '已过期' ? 'expired' : (packageInfo.status === '已领取' ? 'picked' : '')}}">
+        {{packageInfo.status}}
+      </view>
+    </view>
+
+    <view class="card-content">
+      <view class="info-item">
+        <view class="info-label">快递单号：</view>
+        <view class="info-value">{{packageInfo.trackingNumber}}</view>
+        <view class="copy-btn" bindtap="copyTrackingNumber">复制</view>
+      </view>
+      
+      <view class="info-item">
+        <view class="info-label">到达时间：</view>
+        <view class="info-value">{{packageInfo.arrivalTime}}</view>
+      </view>
+      
+      <view class="info-item">
+        <view class="info-label">存放位置：</view>
+        <view class="info-value">{{packageInfo.location}}</view>
+      </view>
+      
+      <view class="info-item" wx:if="{{packageInfo.cabinetNumber}}">
+        <view class="info-label">柜号：</view>
+        <view class="info-value highlight">{{packageInfo.cabinetNumber}}</view>
+      </view>
+      
+      <view class="info-item" wx:if="{{packageInfo.pickupCode}}">
+        <view class="info-label">取件码：</view>
+        <view class="info-value highlight">{{packageInfo.pickupCode}}</view>
+      </view>
+      
+      <view class="info-item" wx:if="{{packageInfo.status === '待领取'}}">
+        <view class="info-label">过期时间：</view>
+        <view class="info-value warning">{{packageInfo.expiryDate}}</view>
+      </view>
+      
+      <view class="info-item" wx:if="{{packageInfo.status === '已领取'}}">
+        <view class="info-label">领取时间：</view>
+        <view class="info-value">{{packageInfo.pickupTime}}</view>
+      </view>
+      
+      <view class="info-item" wx:if="{{packageInfo.remark}}">
+        <view class="info-label">备注：</view>
+        <view class="info-value">{{packageInfo.remark}}</view>
+      </view>
+    </view>
+
+    <view class="card-actions">
+      <block wx:if="{{packageInfo.status === '待领取'}}">
+        <view class="action-btn primary" bindtap="confirmPickup">确认领取</view>
+        <view class="action-btn" bindtap="setReminder">设置提醒</view>
+      </block>
+      <view class="action-btn" bindtap="contactCourier">联系快递</view>
+    </view>
+  </view>
+
+  <!-- 物流跟踪 -->
+  <view class="tracking-section">
+    <view class="section-title">物流跟踪</view>
+    <view class="tracking-timeline">
+      <view class="timeline-item {{index === 0 ? 'current' : ''}}" wx:for="{{trackingInfo}}" wx:key="index">
+        <view class="timeline-dot"></view>
+        <view class="timeline-content">
+          <view class="timeline-time">{{item.time}}</view>
+          <view class="timeline-status">{{item.status}}</view>
+          <view class="timeline-location" wx:if="{{item.location}}">{{item.location}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 相似包裹 -->
+  <view class="similar-packages" wx:if="{{similarPackages.length > 0}}">
+    <view class="section-title">相似包裹</view>
+    <view class="similar-list">
+      <view class="similar-item" wx:for="{{similarPackages}}" wx:key="id" bindtap="viewPackageDetail" data-id="{{item.id}}">
+        <view class="similar-courier">{{item.courier}}</view>
+        <view class="similar-info">
+          <view>{{item.arrivalTime}}</view>
+          <view class="similar-status {{item.status === '已过期' ? 'expired' : (item.status === '已领取' ? 'picked' : '')}}">{{item.status}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提醒设置弹窗 -->
+  <view class="reminder-modal {{showReminderModal ? 'show' : ''}}">
+    <view class="modal-mask" bindtap="hideReminderModal"></view>
+    <view class="modal-content">
+      <view class="modal-title">设置提醒</view>
+      <view class="modal-body">
+        <view class="reminder-options">
+          <view class="reminder-option {{selectedReminder === '30' ? 'selected' : ''}}" bindtap="selectReminder" data-time="30">30分钟前</view>
+          <view class="reminder-option {{selectedReminder === '60' ? 'selected' : ''}}" bindtap="selectReminder" data-time="60">1小时前</view>
+          <view class="reminder-option {{selectedReminder === '120' ? 'selected' : ''}}" bindtap="selectReminder" data-time="120">2小时前</view>
+          <view class="reminder-option {{selectedReminder === 'custom' ? 'selected' : ''}}" bindtap="selectReminder" data-time="custom">自定义</view>
+        </view>
+        <view class="custom-time" wx:if="{{selectedReminder === 'custom'}}">
+          <picker mode="time" value="{{customTime}}" bindchange="setCustomTime">
+            <view class="picker-view">{{customTime}}</view>
+          </picker>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="modal-btn cancel" bindtap="hideReminderModal">取消</view>
+        <view class="modal-btn confirm" bindtap="saveReminder">确定</view>
+      </view>
+    </view>
+  </view>
+</view>

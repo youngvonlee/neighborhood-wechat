@@ -1,0 +1,68 @@
+<!--pages/services/services.wxml-->
+<view class="container">
+  <view class="section-title">社区服务</view>
+  
+  <!-- 服务网格 -->
+  <view class="services-grid">
+    <block wx:for="{{services}}" wx:key="id">
+      <navigator url="{{item.path}}" class="service-item">
+        <view class="service-icon">
+          <image src="{{item.icon}}" mode="aspectFit"></image>
+        </view>
+        <view class="service-info">
+          <view class="service-title">{{item.title}}</view>
+          <view class="service-description">{{item.description}}</view>
+        </view>
+      </navigator>
+    </block>
+  </view>
+
+  <!-- 最近订单 -->
+  <view class="section">
+    <view class="section-title">最近订单</view>
+    <view class="card" wx:if="{{recentOrders.length > 0}}">
+      <block wx:for="{{recentOrders}}" wx:key="id">
+        <view class="order-item">
+          <view class="order-info">
+            <view class="order-type">{{item.serviceType}}</view>
+            <view class="order-description">{{item.description}}</view>
+            <view class="order-date">{{item.date}}</view>
+          </view>
+          <view class="order-status {{item.status === '处理中' ? 'status-processing' : item.status === '待取件' ? 'status-pending' : ''}}">
+            {{item.status}}
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="empty-state" wx:else>
+      <text>暂无订单记录</text>
+    </view>
+  </view>
+
+  <!-- 紧急联系 -->
+  <view class="emergency-contact">
+    <view class="section-title">紧急联系</view>
+    <view class="card">
+      <view class="contact-item" bindtap="callProperty">
+        <view class="contact-icon">
+          <image src="/static/icons/phone.svg" mode="aspectFit"></image>
+        </view>
+        <view class="contact-info">
+          <view class="contact-title">物业服务热线</view>
+          <view class="contact-number">400-123-4567</view>
+        </view>
+        <view class="contact-action">拨打</view>
+      </view>
+      <view class="contact-item" bindtap="callEmergency">
+        <view class="contact-icon">
+          <image src="/static/icons/alert-triangle.svg" mode="aspectFit"></image>
+        </view>
+        <view class="contact-info">
+          <view class="contact-title">紧急救援</view>
+          <view class="contact-number">120/110/119</view>
+        </view>
+        <view class="contact-action">拨打</view>
+      </view>
+    </view>
+  </view>
+</view>

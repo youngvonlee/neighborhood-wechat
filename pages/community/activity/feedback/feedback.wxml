@@ -1,0 +1,66 @@
+<!-- pages/community/activity/feedback/feedback.wxml -->
+<view class="container">
+  <!-- 活动信息 -->
+  <view class="activity-info" wx:if="{{activity}}">
+    <image class="activity-image" src="{{activity.image}}" mode="aspectFill"></image>
+    <view class="activity-title">{{activity.title}}</view>
+    <view class="activity-meta">
+      <text class="activity-time">{{activity.time}}</text>
+      <text class="activity-location">{{activity.location}}</text>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <!-- 评价表单 -->
+  <view class="feedback-form" wx:if="{{!loading}}">
+    <view class="form-title">活动评价</view>
+    
+    <!-- 评分 -->
+    <view class="rating-section">
+      <view class="section-title">活动评分</view>
+      <view class="stars-container">
+        <view class="star {{rating >= 1 ? 'active' : ''}}" bindtap="setRating" data-rating="1">★</view>
+        <view class="star {{rating >= 2 ? 'active' : ''}}" bindtap="setRating" data-rating="2">★</view>
+        <view class="star {{rating >= 3 ? 'active' : ''}}" bindtap="setRating" data-rating="3">★</view>
+        <view class="star {{rating >= 4 ? 'active' : ''}}" bindtap="setRating" data-rating="4">★</view>
+        <view class="star {{rating >= 5 ? 'active' : ''}}" bindtap="setRating" data-rating="5">★</view>
+      </view>
+      <text class="rating-text">{{rating ? rating + '星' : '请点击星星评分'}}</text>
+    </view>
+    
+    <!-- 评价内容 -->
+    <view class="comment-section">
+      <view class="section-title">评价内容</view>
+      <textarea class="comment-input" placeholder="请输入您对本次活动的评价和建议..." bindinput="inputComment" value="{{comment}}"></textarea>
+    </view>
+
+    <!-- 活动体验 -->
+    <view class="experience-section">
+      <view class="section-title">活动体验</view>
+      <checkbox-group class="experience-options">
+        <label class="experience-item">
+          <checkbox value="organized" />组织有序
+        </label>
+        <label class="experience-item">
+          <checkbox value="content" />内容丰富
+        </label>
+        <label class="experience-item">
+          <checkbox value="interactive" />互动性强
+        </label>
+        <label class="experience-item">
+          <checkbox value="valuable" />收获很多
+        </label>
+      </checkbox-group>
+    </view>
+
+    <!-- 提交按钮 -->
+    <view class="button-group">
+      <button class="btn-cancel" bindtap="cancelFeedback">取消</button>
+      <button class="btn-submit" bindtap="submitFeedback" loading="{{submitting}}">提交评价</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,142 @@
+<!-- pages/groupbuy/detail/detail.wxml -->
+<view class="container" wx:if="{{activity}}">
+  <!-- 顶部图片轮播 -->
+  <swiper class="banner-swiper" indicator-dots="true" autoplay="true" interval="3000" duration="500">
+    <block wx:for="{{activity.images}}" wx:key="*this">
+      <swiper-item>
+        <image src="{{item}}" class="banner-image" mode="aspectFill" bindtap="previewImage" data-src="{{item}}"></image>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- 团购基本信息 -->
+  <view class="info-card">
+    <view class="title-row">
+      <view class="activity-title">{{activity.title}}</view>
+      <view class="collect-btn" bindtap="toggleCollect">
+        <image class="collect-icon" src="/static/icons/{{isCollected ? 'heart-fill.svg' : 'heart.svg'}}" mode="widthFix"></image>
+      </view>
+    </view>
+    
+    <view class="price-row">
+      <view class="activity-price">¥{{activity.price}}</view>
+      <view class="activity-original-price">¥{{activity.originalPrice}}</view>
+      <view class="discount-tag">{{(activity.price/activity.originalPrice*10).toFixed(1)}}折</view>
+    </view>
+    
+    <view class="progress-container">
+      <progress percent="{{activity.currentCount / activity.targetCount * 100}}" stroke-width="3" activeColor="#11cd6e" backgroundColor="#eee"></progress>
+      <view class="progress-text">
+        <text>已有{{activity.currentCount}}人参与</text>
+        <text>目标{{activity.targetCount}}人</text>
+      </view>
+    </view>
+    
+    <view class="deadline">截止时间：{{activity.endTime}}</view>
+    
+    <view class="action-btns">
+      <button class="action-btn share" bindtap="shareGroupBuy">
+        <image class="btn-icon" src="/static/icons/share.svg" mode="widthFix"></image>
+        <text>分享</text>
+      </button>
+      <button class="action-btn contact" bindtap="contactOrganizer">
+        <image class="btn-icon" src="/static/icons/phone.svg" mode="widthFix"></image>
+        <text>联系团长</text>
+      </button>
+      <button class="action-btn delivery" bindtap="viewDeliveryInfo">
+        <image class="btn-icon" src="/static/icons/truck.svg" mode="widthFix"></image>
+        <text>配送信息</text>
+      </button>
+    </view>
+  </view>
+
+  <!-- 团购详情 -->
+  <view class="detail-card">
+    <view class="card-title">团购详情</view>
+    <view class="detail-item">
+      <view class="detail-label">团购发起人</view>
+      <view class="detail-value">{{activity.organizer}}</view>
+    </view>
+    <view class="detail-item">
+      <view class="detail-label">商品分类</view>
+      <view class="detail-value">{{activity.category === 'fresh' ? '生鲜' : activity.category === 'food' ? '食品' : activity.category === 'daily' ? '日用品' : '其他'}}</view>
+    </view>
+    <view class="detail-item">
+      <view class="detail-label">商品描述</view>
+      <view class="detail-value description">{{activity.description}}</view>
+    </view>
+    <view class="detail-item">
+      <view class="detail-label">团购规则</view>
+      <view class="detail-value rules">{{activity.rules}}</view>
+    </view>
+  </view>
+
+  <!-- 用户评价 -->
+  <view class="comments-card">
+    <view class="card-title">用户评价 ({{comments.length}})</view>
+    <view class="comments-list">
+      <block wx:for="{{showAllComments ? comments : comments.slice(0, 2)}}" wx:key="id">
+        <view class="comment-item">
+          <image class="user-avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+          <view class="comment-content">
+            <view class="comment-header">
+              <view class="user-name">{{item.user}}</view>
+              <view class="comment-time">{{item.time}}</view>
+            </view>
+            <view class="rating">
+              <block wx:for="{{5}}" wx:for-item="star" wx:key="*this">
+                <image class="star-icon" src="/static/icons/{{star < item.rating ? 'star-fill.svg' : 'star.svg'}}" mode="widthFix"></image>
+              </block>
+            </view>
+            <view class="comment-text">{{item.content}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class="view-more" bindtap="toggleComments" wx:if="{{comments.length > 2}}">
+      {{showAllComments ? '收起' : '查看全部评价'}}
+    </view>
+  </view>
+
+  <!-- 相关团购推荐 -->
+  <view class="related-card">
+    <view class="card-title">相关团购推荐</view>
+    <scroll-view scroll-x="true" class="related-scroll">
+      <view class="related-list">
+        <view class="related-item" wx:for="{{relatedActivities}}" wx:key="id">
+          <image class="related-image" src="{{item.image}}" mode="aspectFill"></image>
+          <view class="related-title">{{item.title}}</view>
+          <view class="related-price">¥{{item.price}}</view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- 底部固定按钮 -->
+  <view class="bottom-bar">
+    <button class="join-btn" bindtap="joinGroupBuy">立即参与</button>
+  </view>
+
+  <!-- 分享选项弹窗 -->
+  <view class="share-modal {{showShareOptions ? 'show' : ''}}">
+    <view class="share-content">
+      <view class="share-title">分享到</view>
+      <view class="share-options">
+        <view class="share-option" bindtap="selectShareOption" data-option="wechat">
+          <image class="share-option-icon" src="/static/icons/wechat.svg" mode="widthFix"></image>
+          <text>微信好友</text>
+        </view>
+        <view class="share-option" bindtap="selectShareOption" data-option="moments">
+          <image class="share-option-icon" src="/static/icons/moments.svg" mode="widthFix"></image>
+          <text>朋友圈</text>
+        </view>
+        <view class="share-option" bindtap="selectShareOption" data-option="poster">
+          <image class="share-option-icon" src="/static/icons/image.svg" mode="widthFix"></image>
+          <text>生成海报</text>
+        </view>
+      </view>
+      <button class="cancel-btn" bindtap="closeShareOptions">取消</button>
+    </view>
+    <view class="share-mask" bindtap="closeShareOptions"></view>
+  </view>
+</view>

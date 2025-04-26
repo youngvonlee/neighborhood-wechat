@@ -1,0 +1,287 @@
+/* pages/property/notice/detail/detail.wxss */
+.container {
+  padding: 30rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 通知标题区域 */
+.notice-header {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.notice-tag {
+  display: inline-block;
+  min-width: 80rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  border-radius: 6rpx;
+  font-size: 22rpx;
+  margin-bottom: 15rpx;
+  color: #fff;
+  padding: 0 10rpx;
+}
+
+.notice-tag.notice {
+  background-color: #11cd6e;
+}
+
+.notice-tag.maintenance {
+  background-color: #ff9500;
+}
+
+.notice-tag.payment {
+  background-color: #ff4d4f;
+}
+
+.notice-tag.activity {
+  background-color: #1890ff;
+}
+
+.notice-title {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.notice-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 通知内容区域 */
+.notice-content {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.content-text {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+/* 附件区域 */
+.attachments {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  position: relative;
+  padding-left: 20rpx;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8rpx;
+  height: 30rpx;
+  background-color: #11cd6e;
+  border-radius: 4rpx;
+}
+
+.attachment-list {
+  margin-bottom: 10rpx;
+}
+
+.attachment-item {
+  display: flex;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.attachment-item:last-child {
+  border-bottom: none;
+}
+
+.attachment-icon {
+  width: 40rpx;
+  margin-right: 20rpx;
+}
+
+.attachment-info {
+  flex: 1;
+}
+
+.attachment-name {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 5rpx;
+}
+
+.attachment-size {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 确认按钮 */
+.confirm-section {
+  margin-bottom: 20rpx;
+}
+
+.confirm-btn {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  background-color: #11cd6e;
+  color: #fff;
+  font-size: 30rpx;
+  border-radius: 40rpx;
+}
+
+/* 已确认状态 */
+.confirmed-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.confirmed-icon {
+  width: 80rpx;
+  margin-bottom: 15rpx;
+}
+
+.confirmed-text {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #11cd6e;
+  margin-bottom: 10rpx;
+}
+
+.confirmed-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 相关操作 */
+.action-section {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.action-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+  position: relative;
+  padding-left: 20rpx;
+}
+
+.action-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8rpx;
+  height: 30rpx;
+  background-color: #11cd6e;
+  border-radius: 4rpx;
+}
+
+.action-list {
+  display: flex;
+  justify-content: space-around;
+}
+
+.action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.action-icon {
+  width: 50rpx;
+  margin-bottom: 10rpx;
+}
+
+.action-text {
+  font-size: 26rpx;
+  color: #666;
+}
+
+/* 相关通知 */
+.related-section {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.related-list {
+  margin-bottom: 10rpx;
+}
+
+.related-item {
+  display: flex;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.related-item:last-child {
+  border-bottom: none;
+}
+
+.related-tag {
+  min-width: 60rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  text-align: center;
+  border-radius: 6rpx;
+  font-size: 20rpx;
+  margin-right: 15rpx;
+  color: #fff;
+  padding: 0 8rpx;
+}
+
+.related-info {
+  flex: 1;
+}
+
+.related-title {
+  font-size: 28rpx;
+  color: #333;
+  margin-bottom: 5rpx;
+}
+
+.related-time {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.arrow-icon {
+  width: 30rpx;
+}

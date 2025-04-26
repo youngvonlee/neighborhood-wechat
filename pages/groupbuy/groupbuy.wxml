@@ -1,0 +1,98 @@
+<!-- pages/groupbuy/groupbuy.wxml -->
+<view class="container">
+  <!-- 顶部标签页 -->
+  <view class="tabs">
+    <view class="tab {{activeTab === 'ongoing' ? 'active' : ''}}" bindtap="switchTab" data-tab="ongoing">进行中</view>
+    <view class="tab {{activeTab === 'completed' ? 'active' : ''}}" bindtap="switchTab" data-tab="completed">已结束</view>
+  </view>
+
+  <!-- 筛选栏 -->
+  <view class="filter-bar" wx:if="{{activeTab === 'ongoing'}}">
+    <scroll-view scroll-x="true" class="category-scroll">
+      <view class="category-list">
+        <view class="category-item {{activeCategory === item.id ? 'active' : ''}}" 
+              wx:for="{{categories}}" 
+              wx:key="id"
+              bindtap="switchCategory" 
+              data-category="{{item.id}}">{{item.name}}</view>
+      </view>
+    </scroll-view>
+    <view class="sort-btn" bindtap="showSortOptions">
+      <text>{{sortOptions.find(item => item.id === currentSort).name}}</text>
+      <image class="sort-icon" src="/static/icons/chevron-down.svg" mode="widthFix"></image>
+    </view>
+  </view>
+
+  <!-- 进行中的团购 -->
+  <view class="activities-container" wx:if="{{activeTab === 'ongoing'}}">
+    <view class="activity-card" wx:for="{{ongoingActivities}}" wx:key="id" wx:if="{{activeCategory === 'all' || item.category === activeCategory}}">
+      <image class="activity-image" src="{{item.image}}" mode="aspectFill"></image>
+      <view class="activity-info">
+        <view class="activity-title">{{item.title}}</view>
+        <view class="activity-description" bindtap="viewDetail" data-id="{{item.id}}">{{item.description}}</view>
+        <view class="activity-price-row">
+          <view class="activity-price">¥{{item.price}}</view>
+          <view class="activity-original-price">¥{{item.originalPrice}}</view>
+        </view>
+        <view class="activity-progress">
+          <progress percent="{{item.currentCount / item.targetCount * 100}}" stroke-width="3" activeColor="#11cd6e" backgroundColor="#eee"></progress>
+          <view class="activity-progress-text">已有{{item.currentCount}}人参与，目标{{item.targetCount}}人</view>
+        </view>
+        <view class="activity-footer">
+          <view class="activity-time">截止时间：{{item.endTime}}</view>
+          <view class="action-btns">
+            <button class="icon-btn" bindtap="setReminder" data-id="{{item.id}}">
+              <image class="action-icon" src="/static/icons/{{item.isReminded ? 'bell-fill.svg' : 'bell.svg'}}" mode="widthFix"></image>
+            </button>
+            <button class="icon-btn" bindtap="shareGroupBuy" data-id="{{item.id}}">
+              <image class="action-icon" src="/static/icons/share.svg" mode="widthFix"></image>
+            </button>
+            <button class="join-btn" bindtap="joinGroupBuy" data-id="{{item.id}}">参与</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 已结束的团购 -->
+  <view class="activities-container" wx:if="{{activeTab === 'completed'}}">
+    <view class="activity-card completed" wx:for="{{completedActivities}}" wx:key="id">
+      <image class="activity-image" src="{{item.image}}" mode="aspectFill"></image>
+      <view class="activity-info">
+        <view class="activity-title">{{item.title}}</view>
+        <view class="activity-price-row">
+          <view class="activity-price">¥{{item.price}}</view>
+          <view class="activity-original-price">¥{{item.originalPrice}}</view>
+        </view>
+        <view class="activity-progress">
+          <progress percent="{{item.currentCount / item.targetCount * 100}}" stroke-width="3" activeColor="#999" backgroundColor="#eee"></progress>
+          <view class="activity-progress-text">{{item.currentCount}}人参与，目标{{item.targetCount}}人</view>
+        </view>
+        <view class="activity-footer">
+          <view class="activity-time">结束时间：{{item.endTime}}</view>
+          <view class="action-btns">
+            <button class="icon-btn" bindtap="viewComments" data-id="{{item.id}}">
+              <image class="action-icon" src="/static/icons/message-circle.svg" mode="widthFix"></image>
+            </button>
+            <view class="status-tag">{{item.status}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 排序选项弹窗 -->
+  <action-sheet hidden="{{!showSortActionSheet}}" bindchange="hideSortOptions">
+    <block wx:for="{{sortOptions}}" wx:key="id">
+      <action-sheet-item bindtap="changeSort" data-sort="{{item.id}}">
+        {{item.name}} {{currentSort === item.id ? '✓' : ''}}
+      </action-sheet-item>
+    </block>
+    <action-sheet-cancel>取消</action-sheet-cancel>
+  </action-sheet>
+
+  <!-- 发起新团购按钮 -->
+  <view class="create-btn-container">
+    <button class="create-btn" bindtap="createNewGroupBuy">发起新团购</button>
+  </view>
+</view>

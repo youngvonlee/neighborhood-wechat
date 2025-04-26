@@ -1,0 +1,73 @@
+<!--pages/property/payment/detail/detail.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">账单详情</view>
+  </view>
+
+  <!-- 账单信息卡片 -->
+  <view class="bill-card">
+    <view class="bill-header">
+      <view class="bill-type">{{bill.type}}</view>
+      <view class="bill-status {{bill.status === '已缴费' ? 'status-paid' : 'status-unpaid'}}">{{bill.status}}</view>
+    </view>
+
+    <view class="bill-amount-section">
+      <view class="amount-label">应缴金额</view>
+      <view class="amount-value">¥ {{bill.amount}}</view>
+    </view>
+
+    <view class="bill-info-list">
+      <view class="info-item">
+        <view class="info-label">账单周期</view>
+        <view class="info-value">{{bill.period}}</view>
+      </view>
+      <view class="info-item">
+        <view class="info-label">房屋信息</view>
+        <view class="info-value">{{bill.building}} {{bill.room}}</view>
+      </view>
+      <view class="info-item">
+        <view class="info-label">{{bill.status === '已缴费' ? '支付日期' : '截止日期'}}</view>
+        <view class="info-value">{{bill.status === '已缴费' ? bill.paidDate : bill.dueDate}}</view>
+      </view>
+      <view class="info-item" wx:if="{{bill.status === '已缴费'}}">
+        <view class="info-label">支付方式</view>
+        <view class="info-value">{{bill.payMethod || '微信支付'}}</view>
+      </view>
+      <view class="info-item" wx:if="{{bill.status === '已缴费'}}">
+        <view class="info-label">交易单号</view>
+        <view class="info-value">{{bill.transactionId || '202305' + bill.id + '88888'}}</view>
+      </view>
+    </view>
+
+    <!-- 账单明细 -->
+    <view class="bill-details">
+      <view class="details-title">费用明细</view>
+      <view class="details-item" wx:for="{{billDetails}}" wx:key="name">
+        <view class="details-name">{{item.name}}</view>
+        <view class="details-value">¥ {{item.value}}</view>
+      </view>
+      <view class="details-total">
+        <view class="details-name">合计</view>
+        <view class="details-value">¥ {{bill.amount}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="btn-primary" wx:if="{{bill.status !== '已缴费'}}" bindtap="payBill">立即缴费</button>
+    <button class="btn-secondary" bindtap="downloadReceipt" wx:if="{{bill.status === '已缴费'}}">下载电子收据</button>
+    <button class="btn-outline" bindtap="reportIssue">有疑问?</button>
+  </view>
+
+  <!-- 缴费说明 -->
+  <view class="payment-notes">
+    <view class="notes-title">缴费说明</view>
+    <view class="notes-content">
+      <view>1. 请在截止日期前完成缴费，避免产生滞纳金</view>
+      <view>2. 如有疑问，请联系物业服务中心</view>
+      <view>3. 电子收据可作为报销凭证</view>
+    </view>
+  </view>
+</view>

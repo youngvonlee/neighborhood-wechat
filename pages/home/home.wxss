@@ -1,0 +1,230 @@
+/* pages/home/home.wxss */
+.container {
+  padding: 20rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30rpx; /* mb-4 */
+}
+
+.greeting {
+  font-size: 36rpx; /* text-lg */
+  font-weight: 600; /* font-semibold */
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  font-size: 24rpx; /* text-sm */
+  color: #666; /* text-gray-dark approximation */
+}
+
+.location-icon {
+  width: 24rpx; /* size={12} approximation */
+  height: 24rpx;
+  margin-right: 5rpx; /* mr-1 */
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  /* space-x-2 can be handled by margins if needed */
+}
+
+/* Quick Links */
+.quick-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx; /* gap-3 */
+  margin-bottom: 40rpx; /* mb-6 */
+}
+
+.quick-link-item {
+  border-radius: 8rpx;
+  overflow: hidden;
+  /* border: 0 - default in WXSS */
+}
+
+.quick-link-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx; /* p-3 */
+}
+
+.quick-link-icon {
+  width: 56rpx; /* size={28} */
+  height: 56rpx;
+  margin-bottom: 5rpx; /* mb-1 */
+}
+
+.quick-link-text {
+  font-size: 24rpx; /* text-sm */
+}
+
+/* Background Colors */
+.bg-orange-light {
+  background-color: #fff7ed; /* Approximation for orange-light */
+}
+.bg-green-light {
+  background-color: #f0fdf4; /* Approximation for green-light */
+}
+.bg-blue-light {
+  background-color: #eff6ff; /* Approximation for blue-light */
+}
+
+/* Icon Colors (applied to icons if needed, or text) */
+.text-primary {
+  color: #f97316; /* Example primary color (orange) */
+}
+.text-green {
+  color: #22c55e; /* Example green */
+}
+.text-blue {
+  color: #3b82f6; /* Example blue */
+}
+
+/* Section (Announcements, Meals) */
+.section {
+  margin-bottom: 40rpx; /* mb-6 */
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx; /* mb-2 */
+}
+
+.section-title {
+  font-size: 32rpx; /* text-base */
+  font-weight: 600; /* font-semibold */
+}
+
+.section-more {
+  font-size: 24rpx; /* text-sm */
+  color: #f97316; /* text-primary */
+}
+
+/* Card */
+.card {
+  background-color: #fff;
+  border-radius: 8rpx;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-content {
+  padding: 20rpx; /* p-3 */
+}
+
+/* Announcement Item */
+.announcement-item {
+  margin-bottom: 10rpx; /* mb-2 */
+}
+.announcement-item:last-child {
+  margin-bottom: 0;
+}
+
+.announcement-title {
+  font-size: 28rpx; /* text-sm */
+  font-weight: 500; /* font-medium */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-height: 1.4; /* Adjust as needed for line-clamp */
+}
+
+.announcement-date {
+  font-size: 20rpx; /* text-xs */
+  color: #666; /* text-gray-dark approximation */
+}
+
+/* Meal Item */
+.meal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx; /* mb-2 */
+}
+.meal-item:last-child {
+  margin-bottom: 0;
+}
+
+.meal-title {
+  font-size: 28rpx; /* text-sm */
+  font-weight: 500; /* font-medium */
+}
+
+.meal-chef {
+  font-size: 20rpx; /* text-xs */
+  color: #666; /* text-gray-dark approximation */
+}
+
+.meal-price {
+  color: #f97316; /* text-primary */
+  font-weight: 700; /* font-bold */
+}
+
+/* 团购滚动区域样式 */
+.groupbuy-scroll {
+  white-space: nowrap;
+  width: 100%;
+}
+
+.groupbuy-scroll-content {
+  display: inline-flex;
+  padding: 10rpx 0;
+}
+
+.groupbuy-item {
+  display: inline-block;
+  width: 220rpx;
+  margin-right: 20rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.groupbuy-image {
+  width: 220rpx;
+  height: 180rpx;
+  border-radius: 10rpx 10rpx 0 0;
+}
+
+.groupbuy-title {
+  font-size: 26rpx;
+  color: #333;
+  padding: 10rpx;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.groupbuy-price {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #ff4d4f;
+  padding: 0 10rpx;
+}
+
+.groupbuy-tag {
+  font-size: 22rpx;
+  color: #999;
+  padding: 0 10rpx 10rpx;
+}
+
+/* 新增红色背景样式 */
+.bg-red-light {
+  background-color: rgba(255, 77, 79, 0.1);
+}

@@ -1,0 +1,77 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/community/community",
+    "pages/services/services",
+    "pages/profile/profile",
+    "pages/groupbuy/groupbuy",
+    "pages/property/parking/parking",
+    "pages/property/notice/notice",
+    "pages/property/notice/detail/detail",
+    "pages/property/visitor/visitor",
+    "pages/property/visitor/add/add",
+    "pages/property/visitor/detail/detail",
+    "pages/community/activity/activity",
+    "pages/community/activity/detail/detail",
+    "pages/community/activity/publish/publish",
+    "pages/community/activity/my/my",
+    "pages/community/activity/notification/notification",
+    "pages/community/vote/vote",
+    "pages/community/vote/detail/detail",
+    "pages/community/vote/create/create",
+    "pages/community/secondhand/secondhand",
+    "pages/community/secondhand/detail/detail",
+    "pages/community/secondhand/publish/publish",
+    "pages/property/facility/facility",
+    "pages/property/facility/booking/booking",
+    "pages/property/facility/my-bookings/my-bookings",
+    "pages/services/nearby/nearby",
+    "pages/services/nearby/detail/detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "小区生活",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#a9b7b7",
+    "selectedColor": "#11cd6e",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "images/tabbar/home.png",
+        "selectedIconPath": "images/tabbar/home_selected.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/community/community",
+        "iconPath": "images/tabbar/community.png",
+        "selectedIconPath": "images/tabbar/community_selected.png",
+        "text": "社区"
+      },
+      {
+        "pagePath": "pages/groupbuy/groupbuy",
+        "iconPath": "images/tabbar/shopping-bag.png",
+        "selectedIconPath": "images/tabbar/shopping-bag_selected.png",
+        "text": "团购"
+      },
+      {
+        "pagePath": "pages/services/services",
+        "iconPath": "images/tabbar/services.png",
+        "selectedIconPath": "images/tabbar/services_selected.png",
+        "text": "服务"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "iconPath": "images/tabbar/profile.png",
+        "selectedIconPath": "images/tabbar/profile_selected.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

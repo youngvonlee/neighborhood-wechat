@@ -1,0 +1,78 @@
+<!--pages/property/parking/temp-detail/temp-detail.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="header-title">临时停车详情</view>
+    <view class="header-subtitle">查看临时停车信息和缴费</view>
+  </view>
+
+  <!-- 车辆信息卡片 -->
+  <view class="parking-card">
+    <view class="card-header">
+      <view class="plate-number">{{parkingInfo.plateNumber}}</view>
+      <view class="parking-status {{parkingInfo.status === '已缴费' ? 'status-paid' : ''}}">
+        {{parkingInfo.status || '未缴费'}}
+      </view>
+    </view>
+
+    <view class="card-content">
+      <view class="info-item">
+        <view class="info-label">入场时间：</view>
+        <view class="info-value">{{parkingInfo.entryTime}}</view>
+      </view>
+
+      <view class="info-item" wx:if="{{parkingInfo.exitTime}}">
+        <view class="info-label">出场时间：</view>
+        <view class="info-value">{{parkingInfo.exitTime}}</view>
+      </view>
+
+      <view class="info-item">
+        <view class="info-label">停车时长：</view>
+        <view class="info-value">{{parkingInfo.parkingDuration}}</view>
+      </view>
+
+      <view class="info-item">
+        <view class="info-label">停车位置：</view>
+        <view class="info-value">{{parkingInfo.location || '地下停车场'}}</view>
+      </view>
+
+      <view class="info-item fee-item">
+        <view class="info-label">应缴费用：</view>
+        <view class="info-value fee-value">¥{{parkingInfo.fee || parkingInfo.estimatedFee}}元</view>
+      </view>
+    </view>
+
+    <view class="card-footer" wx:if="{{!parkingInfo.status || parkingInfo.status !== '已缴费'}}">
+      <view class="action-btn pay-btn" bindtap="payParkingFee">立即缴费</view>
+    </view>
+  </view>
+
+  <!-- 缴费说明 -->
+  <view class="fee-rules">
+    <view class="rules-title">收费标准</view>
+    <view class="rules-content">
+      <view class="rule-item">小型车：8元/小时</view>
+      <view class="rule-item">中型车：10元/小时</view>
+      <view class="rule-item">大型车：15元/小时</view>
+      <view class="rule-item">首小时内按小时计费，之后每30分钟递增</view>
+      <view class="rule-item">业主每月免费停车时长：20小时</view>
+    </view>
+  </view>
+
+  <!-- 历史记录 -->
+  <view class="history-section">
+    <view class="section-title">近期停车记录</view>
+    <view class="history-list">
+      <view class="history-item" wx:for="{{parkingHistory}}" wx:key="id">
+        <view class="history-date">{{item.date}}</view>
+        <view class="history-info">
+          <view>停车时长：{{item.duration}}</view>
+          <view>费用：¥{{item.fee}}元</view>
+        </view>
+        <view class="history-status {{item.status === '已缴费' ? 'status-paid' : ''}}">
+          {{item.status}}
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

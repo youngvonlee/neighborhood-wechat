@@ -1,0 +1,101 @@
+<!--pages/property/package/package.wxml-->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="page-header">
+    <view class="page-title">包裹管理</view>
+    <view class="page-subtitle">查看和管理您的快递包裹</view>
+  </view>
+
+  <!-- 标签页导航 -->
+  <view class="tabs">
+    <view 
+      class="tab-item {{activeTab === index ? 'active' : ''}}" 
+      wx:for="{{tabs}}" 
+      wx:key="index" 
+      bindtap="switchTab" 
+      data-index="{{index}}"
+    >
+      {{item}}
+    </view>
+  </view>
+
+  <!-- 包裹列表 -->
+  <view class="package-list">
+    <view class="loading" wx:if="{{loading}}">
+      <view class="loading-icon"></view>
+      <view class="loading-text">加载中...</view>
+    </view>
+    
+    <block wx:elif="{{packages.length > 0}}">
+      <view 
+        class="package-item" 
+        wx:for="{{packages}}" 
+        wx:key="id" 
+        bindtap="viewPackageDetail"
+        data-id="{{item.id}}"
+      >
+        <view class="package-header">
+          <view class="courier-name">{{item.courier}}</view>
+          <view class="package-status {{item.status === '已过期' ? 'expired' : (item.status === '已领取' ? 'picked' : '')}}">{{item.status}}</view>
+        </view>
+        
+        <view class="package-info">
+          <view class="info-item">
+            <view class="info-label">快递单号：</view>
+            <view class="info-value">{{item.trackingNumber}}</view>
+          </view>
+          
+          <view class="info-item">
+            <view class="info-label">到达时间：</view>
+            <view class="info-value">{{item.arrivalTime}}</view>
+          </view>
+          
+          <view class="info-item">
+            <view class="info-label">存放位置：</view>
+            <view class="info-value">{{item.location}}</view>
+          </view>
+          
+          <view class="info-item" wx:if="{{item.cabinetNumber}}">
+            <view class="info-label">柜号：</view>
+            <view class="info-value highlight">{{item.cabinetNumber}}</view>
+          </view>
+          
+          <view class="info-item" wx:if="{{item.pickupCode}}">
+            <view class="info-label">取件码：</view>
+            <view class="info-value highlight">{{item.pickupCode}}</view>
+          </view>
+          
+          <view class="info-item" wx:if="{{item.status === '待领取'}}">
+            <view class="info-label">过期时间：</view>
+            <view class="info-value warning">{{item.expiryDate}}</view>
+          </view>
+          
+          <view class="info-item" wx:if="{{item.status === '已领取'}}">
+            <view class="info-label">领取时间：</view>
+            <view class="info-value">{{item.pickupTime}}</view>
+          </view>
+          
+          <view class="info-item" wx:if="{{item.remark}}">
+            <view class="info-label">备注：</view>
+            <view class="info-value">{{item.remark}}</view>
+          </view>
+        </view>
+        
+        <view class="package-actions">
+          <block wx:if="{{item.status === '待领取'}}">
+            <view class="action-btn primary" catchtap="confirmPickup" data-id="{{item.id}}">确认领取</view>
+            <view class="action-btn" catchtap="contactCourier" data-id="{{item.id}}">联系快递</view>
+          </block>
+          <block wx:elif="{{item.status === '已领取'}}">
+            <view class="action-btn" catchtap="contactCourier" data-id="{{item.id}}">查看物流</view>
+          </block>
+        </view>
+      </view>
+    </block>
+    
+    <view class="empty-list" wx:else>
+      <view class="empty-icon"></view>
+      <view class="empty-text">暂无{{tabs[activeTab]}}包裹</view>
+    </view>
+  </view>
+</view>

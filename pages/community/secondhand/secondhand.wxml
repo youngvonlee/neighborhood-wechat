@@ -1,0 +1,72 @@
+<!-- pages/community/secondhand/secondhand.wxml -->
+<view class="container">
+  <!-- 页面标题 -->
+  <view class="header">
+    <view class="title">小区二手</view>
+    <view class="subtitle">闲置物品换新家，变废为宝更环保</view>
+  </view>
+  
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrapper">
+      <text class="search-icon">🔍</text>
+      <input 
+        class="search-input" 
+        placeholder="搜索二手物品" 
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+        bindconfirm="searchItems"
+      />
+    </view>
+    <view class="search-btn" bindtap="searchItems">搜索</view>
+  </view>
+  
+  <!-- 发布按钮 -->
+  <view class="publish-btn" bindtap="navigateToPublish">
+    <text class="btn-text">发布闲置</text>
+    <text class="btn-icon">+</text>
+  </view>
+  
+  <!-- 分类标签 -->
+  <view class="category-tabs">
+    <view 
+      wx:for="{{categories}}" 
+      wx:key="id" 
+      class="tab {{activeCategory === item.id ? 'active' : ''}}"
+      bindtap="switchCategory"
+      data-category="{{item.id}}"
+    >{{item.name}}</view>
+  </view>
+  
+  <!-- 物品列表 -->
+  <view class="items-list">
+    <view wx:if="{{loading}}" class="loading-container">
+      <view class="loading"></view>
+    </view>
+    
+    <view wx:elif="{{items.length === 0}}" class="empty-container">
+      <image class="empty-icon" src="/static/images/empty.png" mode="aspectFit"></image>
+      <view class="empty-text">暂无二手物品</view>
+    </view>
+    
+    <view wx:else class="items-grid">
+      <view 
+        wx:for="{{items}}" 
+        wx:key="id" 
+        class="item-card"
+        bindtap="navigateToDetail"
+        data-id="{{item.id}}"
+      >
+        <image class="item-image" src="{{item.images[0]}}" mode="aspectFill"></image>
+        <view class="item-info">
+          <view class="item-title">{{item.title}}</view>
+          <view class="item-price">¥ {{item.price}}</view>
+          <view class="item-meta">
+            <view class="item-location">{{item.location}}</view>
+            <view class="item-time">{{item.publishTime}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

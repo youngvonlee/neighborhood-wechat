@@ -1,0 +1,182 @@
+.container {
+  padding: 30rpx;
+  background-color: #f8f8f8;
+  min-height: 100vh;
+}
+
+.page-header {
+  margin-bottom: 30rpx;
+}
+
+.header-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.header-subtitle {
+  font-size: 26rpx;
+  color: #666;
+  margin-top: 10rpx;
+}
+
+.parking-card {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  margin-bottom: 30rpx;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  margin-bottom: 20rpx;
+}
+
+.plate-number {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.parking-status {
+  font-size: 24rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 20rpx;
+  background-color: #ffecec;
+  color: #ff4d4f;
+}
+
+.status-paid {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.card-content {
+  padding: 10rpx 0;
+}
+
+.info-item {
+  display: flex;
+  margin-bottom: 16rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+}
+
+.info-label {
+  color: #666;
+  width: 180rpx;
+}
+
+.info-value {
+  color: #333;
+  flex: 1;
+}
+
+.fee-item {
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx dashed #f0f0f0;
+}
+
+.fee-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #ff4d4f;
+}
+
+.card-footer {
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.action-btn {
+  padding: 16rpx 30rpx;
+  border-radius: 30rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.pay-btn {
+  background-color: #1890ff;
+  color: #fff;
+}
+
+.fee-rules {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.rules-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.rules-content {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+.rule-item {
+  margin-bottom: 10rpx;
+}
+
+.history-section {
+  background-color: #fff;
+  border-radius: 12rpx;
+  padding: 30rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.history-list {
+  font-size: 26rpx;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.history-date {
+  color: #333;
+  width: 180rpx;
+}
+
+.history-info {
+  flex: 1;
+  color: #666;
+}
+
+.history-status {
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 20rpx;
+  background-color: #ffecec;
+  color: #ff4d4f;
+}
+
+.status-paid {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}

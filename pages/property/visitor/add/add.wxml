@@ -1,0 +1,102 @@
+<!-- pages/property/visitor/add/add.wxml -->
+<view class="container">
+  <view class="form-header">
+    <view class="form-title">访客登记</view>
+    <view class="form-subtitle">请填写访客信息</view>
+  </view>
+
+  <view class="form-content">
+    <!-- 基本信息 -->
+    <view class="form-section">
+      <view class="section-title">基本信息</view>
+      
+      <view class="form-item">
+        <view class="form-label required">访客姓名</view>
+        <input class="form-input" placeholder="请输入访客姓名" value="{{visitorForm.name}}" bindinput="inputVisitorName"></input>
+      </view>
+      
+      <view class="form-item">
+        <view class="form-label required">联系电话</view>
+        <input class="form-input" type="number" placeholder="请输入联系电话" value="{{visitorForm.phone}}" bindinput="inputVisitorPhone"></input>
+      </view>
+      
+      <view class="form-item">
+        <view class="form-label required">到访日期</view>
+        <picker mode="date" value="{{visitorForm.date}}" start="{{dateStart}}" end="{{dateEnd}}" bindchange="dateChange">
+          <view class="form-picker {{visitorForm.date ? '' : 'placeholder'}}">
+            {{visitorForm.date || '请选择日期'}}
+          </view>
+        </picker>
+      </view>
+      
+      <view class="form-item">
+        <view class="form-label required">到访时间</view>
+        <picker mode="time" value="{{visitorForm.time}}" start="{{timeStart}}" bindchange="timeChange">
+          <view class="form-picker {{visitorForm.time ? '' : 'placeholder'}}">
+            {{visitorForm.time || '请选择时间'}}
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 访问信息 -->
+    <view class="form-section">
+      <view class="section-title">访问信息</view>
+      
+      <view class="form-item">
+        <view class="form-label required">访问事由</view>
+        <input class="form-input" placeholder="请输入访问事由" value="{{visitorForm.reason}}" bindinput="inputVisitorReason"></input>
+      </view>
+      
+      <view class="form-item">
+        <view class="form-label">访客关系</view>
+        <view class="form-picker {{visitorForm.relationship ? '' : 'placeholder'}}" bindtap="showRelationshipSelector">
+          {{visitorForm.relationship || '请选择关系'}}
+        </view>
+      </view>
+      
+      <view class="form-item">
+        <view class="form-label">车牌号码</view>
+        <input class="form-input" placeholder="请输入车牌号码（选填）" value="{{visitorForm.carNumber}}" bindinput="inputCarNumber"></input>
+      </view>
+      
+      <view class="form-item">
+        <view class="form-label required">访问地点</view>
+        <input class="form-input" placeholder="请输入访问地点" value="{{visitorForm.houseNumber}}" bindinput="inputHouseNumber"></input>
+      </view>
+      
+      <view class="form-item">
+        <view class="form-label">备注信息</view>
+        <textarea class="form-textarea" placeholder="请输入备注信息（选填）" value="{{visitorForm.remark}}" bindinput="inputRemark"></textarea>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="form-buttons">
+    <button class="cancel-btn" bindtap="cancelForm">取消</button>
+    <button class="submit-btn" bindtap="submitForm">提交</button>
+  </view>
+
+  <!-- 关系选择器 -->
+  <view class="relationship-picker {{showRelationshipPicker ? 'show' : ''}}">
+    <view class="picker-container">
+      <view class="picker-header">
+        <view class="picker-title">选择关系</view>
+        <view class="picker-close" bindtap="cancelRelationship">×</view>
+      </view>
+      <view class="picker-content">
+        <view 
+          class="relationship-item" 
+          wx:for="{{relationshipOptions}}" 
+          wx:key="*this" 
+          bindtap="selectRelationship"
+          data-index="{{index}}"
+        >
+          {{item}}
+        </view>
+      </view>
+    </view>
+    <view class="picker-mask" bindtap="cancelRelationship"></view>
+  </view>
+</view>
